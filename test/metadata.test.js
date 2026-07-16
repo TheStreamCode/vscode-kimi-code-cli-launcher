@@ -35,7 +35,7 @@ test('package metadata exposes the stable launcher interface', () => {
     'Launch Kimi Code CLI from the VS Code editor toolbar in one click. Opens a fresh side terminal in your workspace. Unofficial; Windows, macOS and Linux.',
   );
   assert.equal(packageJson.publisher, 'mikesoft');
-  assert.equal(packageJson.version, '0.1.0');
+  assert.equal(packageJson.version, '0.1.1');
   assert.equal(JSON.parse(readText('package-lock.json')).version, packageJson.version);
   assert.equal(packageJson.icon, 'media/icon.png');
   assert.equal(packageJson.engines.vscode, '^1.103.0');

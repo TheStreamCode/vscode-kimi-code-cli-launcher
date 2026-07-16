@@ -36,7 +36,7 @@ $graphics.SmoothingMode = [System.Drawing.Drawing2D.SmoothingMode]::AntiAlias
 $graphics.InterpolationMode = [System.Drawing.Drawing2D.InterpolationMode]::HighQualityBicubic
 $graphics.PixelOffsetMode = [System.Drawing.Drawing2D.PixelOffsetMode]::HighQuality
 $graphics.CompositingQuality = [System.Drawing.Drawing2D.CompositingQuality]::HighQuality
-$graphics.Clear([System.Drawing.Color]::FromArgb(255, 11, 16, 32))
+$graphics.Clear([System.Drawing.Color]::Transparent)
 
 $background = New-RoundedRect -X 16 -Y 16 -Width 480 -Height 480 -Radius 88
 $backgroundBrush = New-Object System.Drawing.SolidBrush([System.Drawing.Color]::FromArgb(255, 15, 25, 48))

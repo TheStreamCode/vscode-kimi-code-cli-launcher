@@ -4,6 +4,13 @@ All notable changes to this project will be documented in this file.
 
 The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project uses [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## 0.1.1 - 2026-07-16
+
+### Changed
+
+- Updated the Marketplace icon with transparent outer corners while preserving the rounded background and luminous blue avatar
+- Kept the adaptive light and dark toolbar icons unchanged
+
 ## 0.1.0 - 2026-07-16
 
 ### Added
