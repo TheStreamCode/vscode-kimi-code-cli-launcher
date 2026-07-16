@@ -1,0 +1,130 @@
+{
+  "name": "vscode-kimi-code-cli-launcher",
+  "displayName": "Kimi Code CLI Launcher — Run Kimi in VS Code",
+  "description": "Launch Kimi Code CLI from the VS Code editor toolbar in one click. Opens a fresh side terminal in your workspace. Unofficial; Windows, macOS and Linux.",
+  "publisher": "mikesoft",
+  "version": "0.1.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/TheStreamCode/vscode-kimi-code-cli-launcher.git"
+  },
+  "author": {
+    "name": "Michael Gasperini",
+    "url": "https://mikesoft.it"
+  },
+  "bugs": {
+    "url": "https://github.com/TheStreamCode/vscode-kimi-code-cli-launcher/issues"
+  },
+  "homepage": "https://github.com/TheStreamCode/vscode-kimi-code-cli-launcher#readme",
+  "sponsor": {
+    "url": "https://github.com/sponsors/TheStreamCode"
+  },
+  "license": "MIT",
+  "icon": "media/icon.png",
+  "galleryBanner": {
+    "color": "#0B1020",
+    "theme": "dark"
+  },
+  "pricing": "Free",
+  "engines": {
+    "vscode": "^1.103.0"
+  },
+  "capabilities": {
+    "untrustedWorkspaces": {
+      "supported": "limited",
+      "description": "Launching Kimi Code CLI runs terminal commands in the current workspace. The launcher is disabled until the workspace is trusted.",
+      "restrictedConfigurations": [
+        "kimiCodeCliLauncher.cliCommand"
+      ]
+    }
+  },
+  "categories": [
+    "AI",
+    "Chat",
+    "Other"
+  ],
+  "keywords": [
+    "kimi",
+    "kimi code",
+    "kimi code cli",
+    "kimi code launcher",
+    "kimi cli",
+    "kimi cli vscode",
+    "kimi vscode",
+    "kimi vscode extension",
+    "kimi terminal",
+    "moonshot ai",
+    "moonshot ai kimi",
+    "ai coding agent",
+    "coding agent",
+    "terminal launcher",
+    "side terminal",
+    "editor toolbar",
+    "vscode",
+    "cursor",
+    "windsurf"
+  ],
+  "main": "./out/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "kimiCodeCliLauncher.openCli",
+        "title": "Open Kimi Code CLI in Side Terminal",
+        "category": "Kimi Code CLI Launcher",
+        "icon": {
+          "light": "./media/launcher-mark-light.svg",
+          "dark": "./media/launcher-mark-dark.svg"
+        }
+      },
+      {
+        "command": "kimiCodeCliLauncher.openSettings",
+        "title": "Open Settings",
+        "category": "Kimi Code CLI Launcher"
+      }
+    ],
+    "menus": {
+      "editor/title": [
+        {
+          "command": "kimiCodeCliLauncher.openCli",
+          "group": "navigation"
+        }
+      ]
+    },
+    "configuration": {
+      "title": "Kimi Code CLI Launcher",
+      "properties": {
+        "kimiCodeCliLauncher.cliCommand": {
+          "type": "string",
+          "scope": "machine",
+          "default": "kimi",
+          "markdownDescription": "Command used to start Kimi Code CLI. On Windows, quote executable paths that contain spaces, for example `\"C:\\Program Files\\Kimi Code\\kimi.exe\"`."
+        },
+        "kimiCodeCliLauncher.terminalName": {
+          "type": "string",
+          "scope": "window",
+          "default": "Kimi Code CLI",
+          "description": "Base name of the terminal created by the launcher."
+        }
+      }
+    }
+  },
+  "scripts": {
+    "compile": "node ./node_modules/typescript/bin/tsc -p . --pretty false",
+    "watch": "node ./node_modules/typescript/bin/tsc --watch -p . --pretty false",
+    "test": "node ./node_modules/typescript/bin/tsc -p . --pretty false && node --test test/*.test.js && node ./test/integration/runTest.js",
+    "test:unit": "node ./node_modules/typescript/bin/tsc -p . --pretty false && node --test test/*.test.js",
+    "test:integration": "node ./node_modules/typescript/bin/tsc -p . --pretty false && node ./test/integration/runTest.js",
+    "test:metadata": "node ./node_modules/typescript/bin/tsc -p . --pretty false && node --test test/metadata.test.js",
+    "generate:icon": "powershell -NoProfile -ExecutionPolicy Bypass -File ./scripts/generate-icon.ps1",
+    "vscode:prepublish": "node ./node_modules/typescript/bin/tsc -p . --pretty false",
+    "package": "node ./node_modules/@vscode/vsce/vsce package",
+    "check": "node ./node_modules/typescript/bin/tsc -p . --pretty false && node --test test/*.test.js && node ./test/integration/runTest.js && node ./node_modules/@vscode/vsce/vsce ls"
+  },
+  "devDependencies": {
+    "@types/node": "^22.20.0",
+    "@types/vscode": "^1.103.0",
+    "@vscode/test-electron": "^3.0.0",
+    "@vscode/vsce": "^3.9.2",
+    "typescript": "^7.0.2"
+  }
+}

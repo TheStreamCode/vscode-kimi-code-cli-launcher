@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" role="img" aria-label="Blue avatar launcher">
+  <defs>
+    <radialGradient id="orb-light" cx="38%" cy="30%" r="72%">
+      <stop offset="0" stop-color="#91D5FF"/>
+      <stop offset="0.55" stop-color="#429FF7"/>
+      <stop offset="1" stop-color="#126BC6"/>
+    </radialGradient>
+  </defs>
+  <circle cx="8" cy="8" r="7.15" fill="#155E9E" opacity=".2"/>
+  <circle cx="8" cy="8" r="6.65" fill="#E7F5FF" stroke="#3E789E" stroke-width=".7"/>
+  <circle cx="8" cy="8" r="5.95" fill="url(#orb-light)"/>
+  <circle cx="8" cy="8" r="5.45" fill="none" stroke="#D8F1FF" stroke-width=".35" opacity=".55"/>
+  <rect x="5.1" y="5.6" width="1.45" height="3.05" rx=".72" fill="#FFFFFF"/>
+  <rect x="9.45" y="5.6" width="1.45" height="3.05" rx=".72" fill="#FFFFFF"/>
+</svg>

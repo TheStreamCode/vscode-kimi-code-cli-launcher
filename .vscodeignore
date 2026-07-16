@@ -1,0 +1,17 @@
+src/**
+test/**
+docs/**
+scripts/**
+node_modules/**
+.git/**
+.gitignore
+.github/**
+.kimi/**
+.vscode/**
+.vsce/**
+*.vsix
+*.log
+out/**/*.map
+*.tsbuildinfo
+tsconfig.json
+package-lock.json
