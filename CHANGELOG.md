@@ -4,6 +4,12 @@ All notable changes to this project will be documented in this file.
 
 The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project uses [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## 0.1.2 - 2026-07-25
+
+### Security
+
+- The launch command is now read from user-level settings only. `configuration.get('cliCommand')` also resolves workspace and workspace-folder values, so a cloned repository shipping a `.vscode/settings.json` could choose the command sent to the terminal on the first toolbar click. The extension now inspects the setting and reads `globalValue`/`defaultValue`, matching the hardening the sibling launchers have carried since their first release.
+
 ## 0.1.1 - 2026-07-16
 
 ### Changed

@@ -4,8 +4,8 @@ import {
   FALLBACK_TERMINAL_NAME,
   buildExtensionSettingsQuery,
   buildTerminalName,
-  normalizeCliCommand,
   normalizeTerminalName,
+  resolveCliCommandSetting,
   resolveTerminalCwd,
 } from './command-utils.js';
 
@@ -38,7 +38,7 @@ export function activate(context: vscode.ExtensionContext): void {
     }
 
     const configuration = vscode.workspace.getConfiguration(SETTINGS_NAMESPACE);
-    const cliCommand = normalizeCliCommand(configuration.get<string>('cliCommand', FALLBACK_CLI_COMMAND));
+    const cliCommand = resolveCliCommandSetting(configuration.inspect<string>('cliCommand'), FALLBACK_CLI_COMMAND);
     const configuredTerminalName = configuration.get<string>('terminalName', FALLBACK_TERMINAL_NAME);
     const terminalBaseName = normalizeTerminalName(configuredTerminalName);
     const terminalName = buildTerminalName(configuredTerminalName, terminalSequence);
