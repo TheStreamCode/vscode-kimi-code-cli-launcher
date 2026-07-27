@@ -1,0 +1,5 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Super CLI — the all-in-one launcher
+    url: https://github.com/TheStreamCode/super-cli
+    about: Super CLI supports Kimi Code CLI and 20+ other agents in one extension
