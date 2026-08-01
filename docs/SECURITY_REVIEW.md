@@ -26,7 +26,7 @@ Resolution:
 - `brace-expansion` is locked to 5.0.9 (`package-lock.json:1510`).
 - `fast-uri` is locked to 3.1.5 (`package-lock.json:2167`).
 - `npm run check:security` now audits the lockfile at high severity (`package.json:127`).
-- CI and release jobs run the audit before accepting or publishing artifacts (`.github/workflows/ci.yml:106`, `.github/workflows/release.yml:44`).
+- CI and release jobs run the audit before accepting or publishing artifacts (`.github/workflows/ci.yml:104`, `.github/workflows/release.yml:42`).
 
 ## Medium-Severity Findings
 
@@ -36,8 +36,8 @@ The CI workflow referenced `actions/checkout@v7` and `actions/setup-node@v6`. Ma
 
 Resolution:
 
-- All checkout and Node setup steps are pinned to verified full commit SHAs, with their major release retained in same-line comments for maintainability (`.github/workflows/ci.yml:33`, `.github/workflows/ci.yml:36`, `.github/workflows/release.yml:23`, `.github/workflows/release.yml:26`).
-- Default workflow permissions remain read-only; only the release job receives scoped `contents: write` permission (`.github/workflows/release.yml:8`, `.github/workflows/release.yml:18`).
+- All checkout and Node setup steps are pinned to verified full commit SHAs, with their major release retained in same-line comments for maintainability (`.github/workflows/ci.yml:32`, `.github/workflows/ci.yml:35`, `.github/workflows/release.yml:21`, `.github/workflows/release.yml:24`).
+- Default workflow permissions remain read-only; only the release job receives scoped `contents: write` permission (`.github/workflows/release.yml:8`, `.github/workflows/release.yml:16`).
 
 ## Low-Severity Findings
 

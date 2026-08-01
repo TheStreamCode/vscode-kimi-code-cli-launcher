@@ -156,7 +156,6 @@ test('CI validates securely across supported platforms and editor versions', () 
   assert.match(workflow, /ubuntu-latest/);
   assert.match(workflow, /macos-latest/);
   assert.match(workflow, /vscode: '1\.103\.0'/);
-  assert.match(workflow, /VSCODE_TEST_USER_DATA_DIR: \$\{\{ runner\.temp \}\}\/kimi-vscode-test/);
   assert.match(workflow, /cache: npm/);
   assert.match(workflow, /npm ci --ignore-scripts/);
   assert.match(workflow, /npm run check/);
@@ -171,6 +170,7 @@ test('integration runner supports a short isolated VS Code profile path', () => 
   const runner = readText('test/integration/runTest.js');
 
   assert.match(runner, /process\.env\.VSCODE_TEST_USER_DATA_DIR/);
+  assert.match(runner, /process\.env\.RUNNER_TEMP/);
   assert.match(runner, /--user-data-dir=\$\{userDataDir\}/);
 });
 
