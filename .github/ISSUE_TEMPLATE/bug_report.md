@@ -28,5 +28,5 @@ What actually happens.
 
 ## Logs
 ```
-Paste relevant output from Help > Toggle Developer Tools > Console.
+Paste relevant integrated-terminal output. Redact paths, tokens, and personal data.
 ```

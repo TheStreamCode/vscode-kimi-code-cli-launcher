@@ -26,6 +26,7 @@
     "theme": "dark"
   },
   "pricing": "Free",
+  "private": true,
   "engines": {
     "vscode": "^1.103.0"
   },
@@ -111,18 +112,25 @@
   "scripts": {
     "compile": "node ./node_modules/typescript/bin/tsc -p . --pretty false",
     "watch": "node ./node_modules/typescript/bin/tsc --watch -p . --pretty false",
-    "test": "node ./node_modules/typescript/bin/tsc -p . --pretty false && node --test test/*.test.js && node ./test/integration/runTest.js",
-    "test:unit": "node ./node_modules/typescript/bin/tsc -p . --pretty false && node --test test/*.test.js",
-    "test:integration": "node ./node_modules/typescript/bin/tsc -p . --pretty false && node ./test/integration/runTest.js",
-    "test:metadata": "node ./node_modules/typescript/bin/tsc -p . --pretty false && node --test test/metadata.test.js",
+    "typecheck": "node ./node_modules/typescript/bin/tsc -p . --noEmit --pretty false",
+    "lint": "biome lint src test",
+    "format": "biome format --write src test",
+    "format:check": "biome format src test",
+    "test": "npm run compile && node --test test/*.test.js && node ./test/integration/runTest.js",
+    "test:unit": "npm run compile && node --test test/*.test.js",
+    "test:integration": "npm run compile && node ./test/integration/runTest.js",
+    "test:metadata": "npm run compile && node --test test/metadata.test.js",
     "generate:icon": "powershell -NoProfile -ExecutionPolicy Bypass -File ./scripts/generate-icon.ps1",
-    "vscode:prepublish": "node ./node_modules/typescript/bin/tsc -p . --pretty false",
+    "vscode:prepublish": "npm run compile",
     "package": "node ./node_modules/@vscode/vsce/vsce package",
-    "check": "node ./node_modules/typescript/bin/tsc -p . --pretty false && node --test test/*.test.js && node ./test/integration/runTest.js && node ./node_modules/@vscode/vsce/vsce ls"
+    "package:list": "node ./node_modules/@vscode/vsce/vsce ls",
+    "check:security": "npm audit --package-lock-only --audit-level=high",
+    "check": "npm run lint && npm run format:check && npm run typecheck && npm test && npm run package:list"
   },
   "devDependencies": {
+    "@biomejs/biome": "^2.5.6",
     "@types/node": "^22.20.0",
-    "@types/vscode": "^1.103.0",
+    "@types/vscode": "1.103.0",
     "@vscode/test-electron": "^3.1.0",
     "@vscode/vsce": "^3.9.2",
     "typescript": "^7.0.2"

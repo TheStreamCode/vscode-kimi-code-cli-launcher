@@ -3,7 +3,7 @@ const FALLBACK_TERMINAL_NAME = 'Kimi Code CLI';
 
 type WorkspaceFolderLike<T> = { uri: T };
 type WorkspaceLike<T> = {
-  workspaceFolders?: readonly WorkspaceFolderLike<T>[];
+  workspaceFolders: readonly WorkspaceFolderLike<T>[] | undefined;
   getWorkspaceFolder(uri: T): WorkspaceFolderLike<T> | undefined;
 };
 type ActiveEditorLike<T> = { document: { uri: T } };
@@ -22,9 +22,7 @@ export function resolveCliCommandSetting(
   inspection: ConfigurationInspectionLike<string> | undefined,
   fallback = FALLBACK_CLI_COMMAND,
 ): string {
-  const value = inspection?.globalValue !== undefined
-    ? inspection.globalValue
-    : inspection?.defaultValue ?? fallback;
+  const value = inspection?.globalValue !== undefined ? inspection.globalValue : (inspection?.defaultValue ?? fallback);
 
   return normalizeCliCommand(value, fallback);
 }
@@ -35,7 +33,11 @@ export function normalizeTerminalName(value: string | undefined, fallback = FALL
 }
 
 /** Adds a numeric suffix after the first terminal created in this extension host. */
-export function buildTerminalName(value: string | undefined, sequence: number, fallback = FALLBACK_TERMINAL_NAME): string {
+export function buildTerminalName(
+  value: string | undefined,
+  sequence: number,
+  fallback = FALLBACK_TERMINAL_NAME,
+): string {
   const baseName = normalizeTerminalName(value, fallback);
   return sequence <= 1 ? baseName : `${baseName} ${sequence}`;
 }

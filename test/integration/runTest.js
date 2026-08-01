@@ -10,6 +10,7 @@ async function main() {
       extensionDevelopmentPath,
       extensionTestsPath,
       launchArgs: ['--disable-extensions'],
+      version: process.env.VSCODE_TEST_VERSION || 'stable',
     });
   } catch (error) {
     console.error('VS Code integration tests failed.');

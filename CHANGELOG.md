@@ -4,6 +4,20 @@ All notable changes to this project will be documented in this file.
 
 The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project uses [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## Unreleased
+
+### Security
+
+- Updated vulnerable transitive development dependencies and added a lockfile audit gate
+- Pinned GitHub Actions to immutable commit SHAs and limited CI token permissions
+
+### Changed
+
+- Added Biome linting and formatting checks plus stricter TypeScript compiler options
+- Aligned VS Code type definitions and integration coverage with the minimum supported editor version
+- Expanded CI coverage to Windows, Linux, macOS, and the minimum supported VS Code release
+- Updated repository documentation, contributor guidance, and AI-agent instructions
+
 ## 0.1.2 - 2026-07-25
 
 ### Security

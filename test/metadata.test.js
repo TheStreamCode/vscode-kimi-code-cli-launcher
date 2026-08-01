@@ -37,17 +37,15 @@ test('package metadata exposes the stable launcher interface', () => {
   assert.equal(packageJson.publisher, 'mikesoft');
   assert.equal(packageJson.version, '0.1.2');
   assert.equal(JSON.parse(readText('package-lock.json')).version, packageJson.version);
+  assert.equal(packageJson.private, true);
   assert.equal(packageJson.icon, 'media/icon.png');
   assert.equal(packageJson.engines.vscode, '^1.103.0');
-  assert.equal(
-    packageJson.homepage,
-    'https://github.com/TheStreamCode/vscode-kimi-code-cli-launcher#readme',
-  );
+  assert.equal(packageJson.devDependencies['@types/vscode'], '1.103.0');
+  assert.equal(packageJson.homepage, 'https://github.com/TheStreamCode/vscode-kimi-code-cli-launcher#readme');
 
-  assert.deepEqual(
-    packageJson.capabilities.untrustedWorkspaces.restrictedConfigurations,
-    ['kimiCodeCliLauncher.cliCommand'],
-  );
+  assert.deepEqual(packageJson.capabilities.untrustedWorkspaces.restrictedConfigurations, [
+    'kimiCodeCliLauncher.cliCommand',
+  ]);
 
   const [openCliCommand, openSettingsCommand] = packageJson.contributes.commands;
   assert.equal(openCliCommand.command, 'kimiCodeCliLauncher.openCli');
@@ -133,6 +131,10 @@ test('README documents setup, trust, privacy, and official guidance', () => {
   assert.match(readme, /does not collect telemetry, analytics, or personal data/i);
   assert.match(readme, /workspace of the active editor/i);
   assert.match(readme, /npm run check/);
+  assert.match(readme, /## Environment Variables/);
+  assert.match(readme, /## Build and Release/);
+  assert.match(readme, /vscode-kimi-code-cli-launcher-0\.1\.2\.vsix/);
+  assert.doesNotMatch(readme, /vscode-kimi-code-cli-launcher-0\.1\.1\.vsix/);
 });
 
 test('public governance documents use consistent identity and support links', () => {
@@ -142,15 +144,39 @@ test('public governance documents use consistent identity and support links', ()
   assert.match(readText('SECURITY.md'), /info@mikesoft\.it/);
   assert.match(readText('SUPPORT.md'), /vscode-kimi-code-cli-launcher\/issues/);
   assert.match(readText('CITATION.cff'), /title: "Kimi Code CLI Launcher"/);
+  assert.match(readText('CITATION.cff'), /version: "0\.1\.2"/);
+  assert.match(readText('AGENTS.md'), /user-level configuration only/i);
 });
 
-test('CI validates with npm on Windows and Linux', () => {
+test('CI validates securely across supported platforms and editor versions', () => {
   const workflow = readText('.github/workflows/ci.yml');
 
   assert.match(workflow, /^name: CI$/m);
   assert.match(workflow, /windows-latest/);
   assert.match(workflow, /ubuntu-latest/);
+  assert.match(workflow, /macos-latest/);
+  assert.match(workflow, /vscode: '1\.103\.0'/);
   assert.match(workflow, /cache: npm/);
-  assert.match(workflow, /npm ci/);
+  assert.match(workflow, /npm ci --ignore-scripts/);
   assert.match(workflow, /npm run check/);
+  assert.match(workflow, /npm run check:security/);
+  assert.match(workflow, /permissions:\s+contents: read/);
+  assert.match(workflow, /actions\/checkout@[0-9a-f]{40} # v7/);
+  assert.match(workflow, /actions\/setup-node@[0-9a-f]{40} # v6/);
+  assert.doesNotMatch(workflow, /uses: actions\/(?:checkout|setup-node)@v\d+/);
+});
+
+test('release workflow validates, audits, packages, and publishes matching tags', () => {
+  const workflow = readText('.github/workflows/release.yml');
+
+  assert.match(workflow, /^name: Release$/m);
+  assert.match(workflow, /tags:\s+- 'v\*\.\*\.\*'/);
+  assert.match(workflow, /test "\$GITHUB_REF_NAME" = "v\$PACKAGE_VERSION"/);
+  assert.match(workflow, /permissions:\s+contents: write/);
+  assert.match(workflow, /npm ci --ignore-scripts/);
+  assert.match(workflow, /xvfb-run -a npm run check/);
+  assert.match(workflow, /npm run check:security/);
+  assert.match(workflow, /npm run package/);
+  assert.match(workflow, /gh release (?:upload|create)/);
+  assert.doesNotMatch(workflow, /uses: actions\/(?:checkout|setup-node)@v\d+/);
 });

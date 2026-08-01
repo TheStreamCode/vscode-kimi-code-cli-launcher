@@ -52,24 +52,26 @@ export function activate(context: vscode.ExtensionContext): void {
 
     terminalSequence += 1;
 
-    const terminal = vscode.window.createTerminal({
+    const terminalOptions: vscode.TerminalOptions = {
       name: terminalName,
       location: { viewColumn: vscode.ViewColumn.Beside },
-      cwd: resolveTerminalCwd(vscode.window.activeTextEditor, vscode.workspace),
-    });
+    };
+    const cwd = resolveTerminalCwd(vscode.window.activeTextEditor, vscode.workspace);
+
+    if (cwd !== undefined) {
+      terminalOptions.cwd = cwd;
+    }
+
+    const terminal = vscode.window.createTerminal(terminalOptions);
 
     terminal.show();
     terminal.sendText(cliCommand, true);
     void vscode.window.setStatusBarMessage(`Started ${terminalBaseName}`, 2500);
   });
 
-  const openSettingsCommand = vscode.commands.registerCommand(
-    'kimiCodeCliLauncher.openSettings',
-    async () => openExtensionSettings(context),
+  const openSettingsCommand = vscode.commands.registerCommand('kimiCodeCliLauncher.openSettings', async () =>
+    openExtensionSettings(context),
   );
 
   context.subscriptions.push(openCliCommand, openSettingsCommand);
-}
-
-export function deactivate(): void {
 }

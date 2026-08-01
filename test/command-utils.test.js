@@ -15,10 +15,7 @@ const {
 // could pick the command that runs on the first toolbar click. These cover the
 // user-level-only contract that keeps that from happening.
 test('resolveCliCommandSetting prefers the user-level value', () => {
-  assert.equal(
-    resolveCliCommandSetting({ defaultValue: 'kimi', globalValue: 'kimi --verbose' }),
-    'kimi --verbose',
-  );
+  assert.equal(resolveCliCommandSetting({ defaultValue: 'kimi', globalValue: 'kimi --verbose' }), 'kimi --verbose');
 });
 
 test('resolveCliCommandSetting ignores workspace-controlled values', () => {
@@ -81,10 +78,7 @@ test('resolveTerminalCwd uses the active editor workspace when available', () =>
     },
   };
 
-  assert.equal(
-    resolveTerminalCwd({ document: { uri: 'file-b' } }, workspace),
-    'workspace-b',
-  );
+  assert.equal(resolveTerminalCwd({ document: { uri: 'file-b' } }, workspace), 'workspace-b');
 });
 
 test('resolveTerminalCwd falls back to the first workspace', () => {
@@ -95,10 +89,7 @@ test('resolveTerminalCwd falls back to the first workspace', () => {
     },
   };
 
-  assert.equal(
-    resolveTerminalCwd({ document: { uri: 'external-file' } }, workspace),
-    'workspace-a',
-  );
+  assert.equal(resolveTerminalCwd({ document: { uri: 'external-file' } }, workspace), 'workspace-a');
   assert.equal(resolveTerminalCwd(undefined, workspace), 'workspace-a');
 });
 
