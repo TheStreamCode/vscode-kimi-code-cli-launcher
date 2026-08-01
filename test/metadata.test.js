@@ -35,7 +35,7 @@ test('package metadata exposes the stable launcher interface', () => {
     'Launch Kimi Code CLI from the VS Code editor toolbar in one click. Opens a fresh side terminal in your workspace. Unofficial; Windows, macOS and Linux.',
   );
   assert.equal(packageJson.publisher, 'mikesoft');
-  assert.equal(packageJson.version, '0.1.3');
+  assert.equal(packageJson.version, '0.1.4');
   assert.equal(JSON.parse(readText('package-lock.json')).version, packageJson.version);
   assert.equal(packageJson.private, true);
   assert.equal(packageJson.icon, 'media/icon.png');
@@ -133,8 +133,19 @@ test('README documents setup, trust, privacy, and official guidance', () => {
   assert.match(readme, /npm run check/);
   assert.match(readme, /## Environment Variables/);
   assert.match(readme, /## Build and Release/);
-  assert.match(readme, /vscode-kimi-code-cli-launcher-0\.1\.3\.vsix/);
-  assert.doesNotMatch(readme, /vscode-kimi-code-cli-launcher-0\.1\.[12]\.vsix/);
+  assert.match(readme, /vscode-kimi-code-cli-launcher-0\.1\.4\.vsix/);
+  assert.doesNotMatch(readme, /vscode-kimi-code-cli-launcher-0\.1\.[123]\.vsix/);
+});
+
+test('README documents every published distribution channel', () => {
+  const readme = readText('README.md');
+
+  assert.match(readme, /marketplace\.visualstudio\.com\/items\?itemName=mikesoft\.vscode-kimi-code-cli-launcher/);
+  assert.match(readme, /open-vsx\.org\/extension\/mikesoft\/vscode-kimi-code-cli-launcher/);
+  assert.match(readme, /code --install-extension mikesoft\.vscode-kimi-code-cli-launcher/);
+  assert.match(readme, /### VS Code Marketplace/);
+  assert.match(readme, /### Open VSX/);
+  assert.match(readme, /### VSIX from a GitHub release/);
 });
 
 test('public governance documents use consistent identity and support links', () => {
@@ -144,7 +155,7 @@ test('public governance documents use consistent identity and support links', ()
   assert.match(readText('SECURITY.md'), /info@mikesoft\.it/);
   assert.match(readText('SUPPORT.md'), /vscode-kimi-code-cli-launcher\/issues/);
   assert.match(readText('CITATION.cff'), /title: "Kimi Code CLI Launcher"/);
-  assert.match(readText('CITATION.cff'), /version: "0\.1\.3"/);
+  assert.match(readText('CITATION.cff'), /version: "0\.1\.4"/);
   assert.match(readText('AGENTS.md'), /user-level configuration only/i);
 });
 

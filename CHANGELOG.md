@@ -6,6 +6,17 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and
 
 ## Unreleased
 
+## 0.1.4 - 2026-08-01
+
+### Changed
+
+- Documented the VS Code Marketplace and Open VSX installation paths, the `mikesoft.vscode-kimi-code-cli-launcher` extension id, and the manual registry-publishing step
+- Added verified VS Code Marketplace and Open VSX version badges to the README
+
+### Removed
+
+- Dropped an obsolete `.vscodeignore` rule for a security review file that now lives under the already-excluded `docs/` directory
+
 ## 0.1.3 - 2026-08-01
 
 ### Security

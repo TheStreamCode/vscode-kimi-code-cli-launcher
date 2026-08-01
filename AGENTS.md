@@ -22,6 +22,8 @@ These instructions apply to the entire repository. This project is a deliberatel
 - `test/metadata.test.js`: manifest, documentation, workflow, and package-contract tests.
 - `test/integration/`: Extension Host smoke test.
 - `media/`: Marketplace and toolbar artwork; preserve format, dimensions, transparency, and appearance.
+- `scripts/generate-icon.ps1`: deterministic source of `media/icon.png`; it reproduces the published 512x512 artwork byte for byte, so never edit one without the other.
+- `docs/SECURITY_REVIEW.md`: dated security review with file-and-line citations; re-verify the citations when the referenced files move.
 - `out/`, `.vscode-test/`, `node_modules/`, and `*.vsix`: generated or downloaded artifacts; do not commit them.
 
 ## Required Workflow
@@ -65,8 +67,10 @@ Use `npm ci --ignore-scripts` for a clean, reproducible install. Do not replace 
 
 - Update `README.md` for requirements, settings, commands, environment behavior, build, or release changes.
 - Add user-visible changes to the `Unreleased` section of `CHANGELOG.md`.
-- For a release, keep versions synchronized in `package.json`, `package-lock.json`, and `CITATION.cff`; update metadata tests when appropriate.
+- For a release, keep versions synchronized in `package.json`, `package-lock.json`, `CITATION.cff`, the README installation section, and `test/metadata.test.js`. `npm version <x.y.z> --no-git-tag-version` is the supported way to update the manifest and the lockfile together.
 - A `v<version>` tag triggers the GitHub release workflow. Do not create tags, push, publish, or upload Marketplace packages unless explicitly authorized.
+- The extension is published as `mikesoft.vscode-kimi-code-cli-launcher` on the VS Code Marketplace and on Open VSX. Both registries are updated manually by the maintainer with `vsce publish` and `ovsx publish`; the required tokens are deliberately absent from this repository, from the shell environment, and from GitHub Actions secrets, so no workflow or agent can publish. Never add them.
+- `main` is protected and requires one approving review. Land changes through a branch and a pull request; never self-approve or bypass the protection.
 - Maintain the unofficial-project and trademark disclaimer. Do not imply endorsement by Moonshot AI or Kimi.
 
 ## Dependency Policy

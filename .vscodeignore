@@ -20,4 +20,3 @@ out/**/*.map
 *.tsbuildinfo
 tsconfig.json
 package-lock.json
-SECURITY_REVIEW.md

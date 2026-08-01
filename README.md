@@ -1,5 +1,7 @@
 # Kimi Code CLI Launcher for VS Code
 
+[![VS Marketplace](https://vsmarketplacebadges.dev/version-short/mikesoft.vscode-kimi-code-cli-launcher.svg)](https://marketplace.visualstudio.com/items?itemName=mikesoft.vscode-kimi-code-cli-launcher)
+[![Open VSX](https://img.shields.io/open-vsx/v/mikesoft/vscode-kimi-code-cli-launcher?label=open%20vsx)](https://open-vsx.org/extension/mikesoft/vscode-kimi-code-cli-launcher)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 [![GitHub Release](https://img.shields.io/github/v/release/TheStreamCode/vscode-kimi-code-cli-launcher)](https://github.com/TheStreamCode/vscode-kimi-code-cli-launcher/releases/latest)
 [![CI](https://github.com/TheStreamCode/vscode-kimi-code-cli-launcher/actions/workflows/ci.yml/badge.svg)](https://github.com/TheStreamCode/vscode-kimi-code-cli-launcher/actions/workflows/ci.yml)
@@ -16,7 +18,9 @@ The extension uses standard VS Code terminal APIs and is designed for compatible
 | | Kimi Code CLI Launcher |
 | --- | --- |
 | **Purpose** | Launch Kimi Code CLI from the VS Code editor toolbar |
-| **Current release** | `0.1.3` |
+| **Current release** | `0.1.4` |
+| **Available on** | VS Code Marketplace, Open VSX, GitHub Releases |
+| **Extension id** | `mikesoft.vscode-kimi-code-cli-launcher` |
 | **Default command** | `kimi` |
 | **Terminal behavior** | Opens a fresh side terminal for every launch |
 | **Working directory** | Uses the workspace of the active editor when available |
@@ -38,7 +42,7 @@ The extension uses standard VS Code terminal APIs and is designed for compatible
 
 1. Install Kimi Code CLI from the official guide.
 2. Confirm that `kimi --version` works in a regular integrated terminal.
-3. Install this launcher's VSIX from the latest GitHub release.
+3. Install **Kimi Code CLI Launcher** from the [VS Code Marketplace](https://marketplace.visualstudio.com/items?itemName=mikesoft.vscode-kimi-code-cli-launcher) or [Open VSX](https://open-vsx.org/extension/mikesoft/vscode-kimi-code-cli-launcher).
 4. Open a project file and click the blue avatar in the editor toolbar.
 
 Each click starts an independent Kimi Code CLI session in a new side terminal.
@@ -83,10 +87,26 @@ This extension does not install Kimi Code CLI or modify shell configuration.
 
 ## Installation
 
-Download `vscode-kimi-code-cli-launcher-0.1.3.vsix` from the [latest GitHub release](https://github.com/TheStreamCode/vscode-kimi-code-cli-launcher/releases/latest), then run:
+The extension id is `mikesoft.vscode-kimi-code-cli-launcher`.
+
+### VS Code Marketplace
+
+Search for **Kimi Code CLI Launcher** in the Extensions view, open the [Marketplace listing](https://marketplace.visualstudio.com/items?itemName=mikesoft.vscode-kimi-code-cli-launcher), or run:
 
 ```bash
-code --install-extension vscode-kimi-code-cli-launcher-0.1.3.vsix
+code --install-extension mikesoft.vscode-kimi-code-cli-launcher
+```
+
+### Open VSX
+
+Editors that use the [Open VSX Registry](https://open-vsx.org/extension/mikesoft/vscode-kimi-code-cli-launcher), such as VSCodium, Cursor, and Windsurf, resolve the same extension id from their own Extensions view.
+
+### VSIX from a GitHub release
+
+Download `vscode-kimi-code-cli-launcher-0.1.4.vsix` from the [latest GitHub release](https://github.com/TheStreamCode/vscode-kimi-code-cli-launcher/releases/latest), then run:
+
+```bash
+code --install-extension vscode-kimi-code-cli-launcher-0.1.4.vsix
 ```
 
 Alternatively, use **Extensions: Install from VSIX...** from the VS Code Command Palette.
@@ -220,7 +240,16 @@ npm run package
 
 The package is named `vscode-kimi-code-cli-launcher-<version>.vsix` and is intentionally ignored by Git.
 
-For a release, update `package.json`, `package-lock.json`, `CITATION.cff`, and `CHANGELOG.md` together. Commit the validated changes, then push a matching `v<version>` tag. The `Release` workflow verifies the tag/version match, reruns validation and the dependency audit, builds the VSIX, and creates or updates the GitHub release. Marketplace publishing remains a separate maintainer action and requires publisher credentials that must never be committed.
+For a release, update `package.json`, `package-lock.json`, `CITATION.cff`, and `CHANGELOG.md` together. Commit the validated changes, then push a matching `v<version>` tag. The `Release` workflow verifies the tag/version match, reruns validation and the dependency audit, builds the VSIX, and creates or updates the GitHub release.
+
+Registry publishing is a separate, manual maintainer step performed with the VSIX produced above:
+
+```bash
+npx @vscode/vsce publish --packagePath vscode-kimi-code-cli-launcher-<version>.vsix
+npx ovsx publish vscode-kimi-code-cli-launcher-<version>.vsix
+```
+
+Those commands need Marketplace and Open VSX publisher tokens. The tokens are never stored in this repository or in GitHub Actions secrets, so neither CI nor an automated agent can publish on the maintainer's behalf.
 
 ## Troubleshooting
 
