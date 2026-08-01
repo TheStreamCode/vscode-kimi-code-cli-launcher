@@ -58,7 +58,7 @@ Use `npm ci --ignore-scripts` for a clean, reproducible install. Do not replace 
 
 - Add unit tests for helper edge cases and metadata tests for public contract changes.
 - Keep `@types/vscode` pinned to the minimum version declared by `engines.vscode`.
-- The integration runner accepts `VSCODE_TEST_VERSION`; CI covers stable VS Code on Windows, Linux, and macOS plus the minimum supported VS Code on Linux.
+- The integration runner accepts `VSCODE_TEST_VERSION` and `VSCODE_TEST_USER_DATA_DIR`. CI uses a short temporary profile path to stay within macOS Unix-socket limits and covers stable VS Code on Windows, Linux, and macOS plus the minimum supported VS Code on Linux.
 - Never weaken tests merely to make a change pass. Update brittle exact assertions only when the public contract intentionally changes.
 
 ## Documentation and Releases

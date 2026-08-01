@@ -16,6 +16,7 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and
 - Added Biome linting and formatting checks plus stricter TypeScript compiler options
 - Aligned VS Code type definitions and integration coverage with the minimum supported editor version
 - Expanded CI coverage to Windows, Linux, macOS, and the minimum supported VS Code release
+- Isolated Extension Host test profiles under the runner temporary directory to avoid macOS socket-path limits
 - Updated repository documentation, contributor guidance, and AI-agent instructions
 
 ## 0.1.2 - 2026-07-25
