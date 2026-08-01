@@ -16,7 +16,7 @@ The extension uses standard VS Code terminal APIs and is designed for compatible
 | | Kimi Code CLI Launcher |
 | --- | --- |
 | **Purpose** | Launch Kimi Code CLI from the VS Code editor toolbar |
-| **Current release** | `0.1.2` |
+| **Current release** | `0.1.3` |
 | **Default command** | `kimi` |
 | **Terminal behavior** | Opens a fresh side terminal for every launch |
 | **Working directory** | Uses the workspace of the active editor when available |
@@ -83,10 +83,10 @@ This extension does not install Kimi Code CLI or modify shell configuration.
 
 ## Installation
 
-Download `vscode-kimi-code-cli-launcher-0.1.2.vsix` from the [latest GitHub release](https://github.com/TheStreamCode/vscode-kimi-code-cli-launcher/releases/latest), then run:
+Download `vscode-kimi-code-cli-launcher-0.1.3.vsix` from the [latest GitHub release](https://github.com/TheStreamCode/vscode-kimi-code-cli-launcher/releases/latest), then run:
 
 ```bash
-code --install-extension vscode-kimi-code-cli-launcher-0.1.2.vsix
+code --install-extension vscode-kimi-code-cli-launcher-0.1.3.vsix
 ```
 
 Alternatively, use **Extensions: Install from VSIX...** from the VS Code Command Palette.
