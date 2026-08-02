@@ -240,7 +240,7 @@ npm run package
 
 The package is named `vscode-kimi-code-cli-launcher-<version>.vsix` and is intentionally ignored by Git.
 
-For a release, update `package.json`, `package-lock.json`, `CITATION.cff`, and `CHANGELOG.md` together. Commit the validated changes, then push a matching `v<version>` tag. The `Release` workflow verifies the tag/version match, reruns validation and the dependency audit, builds the VSIX, and creates or updates the GitHub release.
+For a release, update `package.json`, `package-lock.json`, `CITATION.cff`, and `CHANGELOG.md` together, including the real release date. Commit the validated changes, then push a matching `v<version>` tag. The `Release` workflow verifies the tag/version match, reruns validation and the dependency audit, builds the VSIX, and creates or updates the GitHub release.
 
 Registry publishing is a separate, manual maintainer step performed with the VSIX produced above:
 

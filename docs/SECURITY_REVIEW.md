@@ -1,13 +1,13 @@
 # Security Review
 
-- Review date: 2026-08-01
+- Review date: 2026-08-02
 - Scope: extension runtime, manifest, tests, npm dependency graph, package contents, and GitHub Actions workflows
 
 ## Executive Summary
 
 No critical runtime vulnerability was identified. The extension remains a small, transparent terminal launcher with no production dependencies, network access, hidden process execution, telemetry, or credential handling.
 
-The review found two high-severity advisories in transitive development dependencies and one CI supply-chain hardening opportunity. Both were remediated without changing runtime behavior. The final npm audit reports zero known vulnerabilities.
+The review found two high-severity advisories in transitive development dependencies, one CI supply-chain hardening opportunity, and one test-isolation issue. All were remediated without changing runtime behavior. The final npm audit reports zero known vulnerabilities.
 
 ## Critical Findings
 
@@ -51,6 +51,15 @@ Resolution:
 - Strict compiler checks now include exact optional properties and unchecked-index protection (`tsconfig.json:12`, `tsconfig.json:17`).
 - CI exercises both stable VS Code and version 1.103.0.
 
+### SEC-006: Integration test could persist resolved settings globally — resolved
+
+The Extension Host smoke test saved configuration with `configuration.get(...)`, which can return a value resolved from a default or workspace scope. Writing that resolved value back to the global scope during cleanup could create a persistent user-level override in the isolated test profile.
+
+Resolution:
+
+- The test now saves the exact `globalValue` returned by `configuration.inspect(...)` and restores that value after the smoke test (`test/integration/suite/index.js:30`, `test/integration/suite/index.js:46`).
+- The integration runner now reports failures explicitly and sets a non-zero process exit code, so CI cannot depend on unhandled-rejection behavior (`test/integration/runTest.js:24`).
+
 ## Reviewed Design Risks
 
 ### SEC-004: User-configurable terminal command — accepted by design
@@ -66,7 +75,7 @@ Residual guidance: users must review custom commands and must not place credenti
 
 ### SEC-005: Dependabot auto-merge trigger — reviewed, no change required
 
-The workflow uses `pull_request_target`, which is dangerous if untrusted pull-request code is executed with write permissions. This workflow checks that the PR author is `dependabot[bot]`, never checks out PR code, and only uses Dependabot metadata before enabling GitHub's gated auto-merge (`.github/workflows/dependabot-auto-merge.yml:20`, `.github/workflows/dependabot-auto-merge.yml:23`, `.github/workflows/dependabot-auto-merge.yml:33`).
+The workflow uses `pull_request_target`, which is dangerous if untrusted pull-request code is executed with write permissions. This workflow checks that the PR author is `dependabot[bot]`, never checks out PR code, and only uses Dependabot metadata before enabling GitHub's gated auto-merge (`.github/workflows/dependabot-auto-merge.yml:23`, `.github/workflows/dependabot-auto-merge.yml:33`, `.github/workflows/dependabot-auto-merge.yml:39`, `.github/workflows/dependabot-auto-merge.yml:45`).
 
 ## Verification
 

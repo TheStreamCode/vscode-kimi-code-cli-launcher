@@ -61,13 +61,14 @@ Use `npm ci --ignore-scripts` for a clean, reproducible install. Do not replace 
 - Add unit tests for helper edge cases and metadata tests for public contract changes.
 - Keep `@types/vscode` pinned to the minimum version declared by `engines.vscode`.
 - The integration runner accepts `VSCODE_TEST_VERSION` and `VSCODE_TEST_USER_DATA_DIR`. CI uses a short temporary profile path to stay within macOS Unix-socket limits and covers stable VS Code on Windows, Linux, and macOS plus the minimum supported VS Code on Linux.
+- Integration tests must restore exact global settings from `configuration.inspect(...).globalValue`; never write a resolved workspace or default value back to global configuration.
 - Never weaken tests merely to make a change pass. Update brittle exact assertions only when the public contract intentionally changes.
 
 ## Documentation and Releases
 
 - Update `README.md` for requirements, settings, commands, environment behavior, build, or release changes.
 - Add user-visible changes to the `Unreleased` section of `CHANGELOG.md`.
-- For a release, keep versions synchronized in `package.json`, `package-lock.json`, `CITATION.cff`, the README installation section, and `test/metadata.test.js`. `npm version <x.y.z> --no-git-tag-version` is the supported way to update the manifest and the lockfile together.
+- For a release, keep versions synchronized in `package.json`, `package-lock.json`, `CITATION.cff`, the README installation section, and `test/metadata.test.js`; keep the real release date synchronized between `CITATION.cff` and `CHANGELOG.md`. `npm version <x.y.z> --no-git-tag-version` is the supported way to update the manifest and the lockfile together.
 - A `v<version>` tag triggers the GitHub release workflow. Do not create tags, push, publish, or upload Marketplace packages unless explicitly authorized.
 - The extension is published as `mikesoft.vscode-kimi-code-cli-launcher` on the VS Code Marketplace and on Open VSX. Both registries are updated manually by the maintainer with `vsce publish` and `ovsx publish`; the required tokens are deliberately absent from this repository, from the shell environment, and from GitHub Actions secrets, so no workflow or agent can publish. Never add them.
 - `main` is protected and requires one approving review. Land changes through a branch and a pull request; never self-approve or bypass the protection.

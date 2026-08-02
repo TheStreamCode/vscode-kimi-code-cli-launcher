@@ -6,12 +6,16 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and
 
 ## Unreleased
 
-## 0.1.4 - 2026-08-01
+## 0.1.4 - 2026-08-02
 
 ### Changed
 
 - Documented the VS Code Marketplace and Open VSX installation paths, the `mikesoft.vscode-kimi-code-cli-launcher` extension id, and the manual registry-publishing step
 - Added verified VS Code Marketplace and Open VSX version badges to the README
+- Made Extension Host failures set an explicit non-zero process exit code
+- Preserved the exact pre-test global launcher settings when the integration test finishes
+- Added automated release-version and release-date consistency checks
+- Clarified that Dependabot auto-merge still waits for the repository's required maintainer approval
 
 ### Removed
 

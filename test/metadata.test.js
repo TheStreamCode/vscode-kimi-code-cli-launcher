@@ -156,6 +156,8 @@ test('public governance documents use consistent identity and support links', ()
   assert.match(readText('SUPPORT.md'), /vscode-kimi-code-cli-launcher\/issues/);
   assert.match(readText('CITATION.cff'), /title: "Kimi Code CLI Launcher"/);
   assert.match(readText('CITATION.cff'), /version: "0\.1\.4"/);
+  assert.match(readText('CITATION.cff'), /date-released: "2026-08-02"/);
+  assert.match(readText('CHANGELOG.md'), /^## 0\.1\.4 - 2026-08-02$/m);
   assert.match(readText('AGENTS.md'), /user-level configuration only/i);
 });
 
@@ -183,6 +185,7 @@ test('integration runner supports a short isolated VS Code profile path', () => 
   assert.match(runner, /process\.env\.VSCODE_TEST_USER_DATA_DIR/);
   assert.match(runner, /process\.env\.RUNNER_TEMP/);
   assert.match(runner, /--user-data-dir=\$\{userDataDir\}/);
+  assert.match(runner, /process\.exitCode = 1/);
 });
 
 test('release workflow validates, audits, packages, and publishes matching tags', () => {
