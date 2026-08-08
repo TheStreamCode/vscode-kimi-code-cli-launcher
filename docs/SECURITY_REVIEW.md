@@ -1,13 +1,13 @@
 # Security Review
 
-- Review date: 2026-08-02
+- Review date: 2026-08-08
 - Scope: extension runtime, manifest, tests, npm dependency graph, package contents, and GitHub Actions workflows
 
 ## Executive Summary
 
 No critical runtime vulnerability was identified. The extension remains a small, transparent terminal launcher with no production dependencies, network access, hidden process execution, telemetry, or credential handling.
 
-The review found two high-severity advisories in transitive development dependencies, one CI supply-chain hardening opportunity, and one test-isolation issue. All were remediated without changing runtime behavior. The final npm audit reports zero known vulnerabilities.
+The 2026-08-08 follow-up found two newly disclosed high-severity advisories in transitive development dependencies, incomplete required-check coverage on `main`, and a behavioral test gap around Workspace Trust. All were remediated without changing runtime behavior. The final npm audit reports zero known vulnerabilities.
 
 ## Critical Findings
 
@@ -26,7 +26,19 @@ Resolution:
 - `brace-expansion` is locked to 5.0.9 (`package-lock.json:1510`).
 - `fast-uri` is locked to 3.1.5 (`package-lock.json:2167`).
 - `npm run check:security` now audits the lockfile at high severity (`package.json:127`).
-- CI and release jobs run the audit before accepting or publishing artifacts (`.github/workflows/ci.yml:104`, `.github/workflows/release.yml:42`).
+- CI and release jobs run the audit before accepting or publishing artifacts (`.github/workflows/ci.yml:109`, `.github/workflows/release.yml:42`).
+
+### SEC-007: Newly disclosed `js-yaml` and `undici` advisories — resolved
+
+**Impact:** Malicious inputs reaching affected build-tool paths could cause denial of service or HTTP parsing and cache-safety failures during development or packaging; the extension runtime was not exposed because neither package is shipped in the VSIX.
+
+The follow-up audit reported `js-yaml` 4.3.0 (GHSA-5p4m-2wfm-xmqj) and `undici` 7.28.0, including GHSA-4cwx-7wf7-3272. Both were transitive development dependencies under `@vscode/vsce`.
+
+Resolution:
+
+- `js-yaml` is locked to 4.3.1 (`package-lock.json:2748`).
+- `undici` is locked to 7.29.0 (`package-lock.json:4580`).
+- `npm audit --omit=dev` and the full locked dependency audit both report zero known vulnerabilities.
 
 ## Medium-Severity Findings
 
@@ -36,8 +48,17 @@ The CI workflow referenced `actions/checkout@v7` and `actions/setup-node@v6`. Ma
 
 Resolution:
 
-- All checkout and Node setup steps are pinned to verified full commit SHAs, with their major release retained in same-line comments for maintainability (`.github/workflows/ci.yml:32`, `.github/workflows/ci.yml:35`, `.github/workflows/release.yml:21`, `.github/workflows/release.yml:24`).
+- All checkout and Node setup steps are pinned to verified full commit SHAs, with their major release retained in same-line comments for maintainability (`.github/workflows/ci.yml:36`, `.github/workflows/ci.yml:39`, `.github/workflows/release.yml:21`, `.github/workflows/release.yml:24`).
 - Default workflow permissions remain read-only; only the release job receives scoped `contents: write` permission (`.github/workflows/release.yml:8`, `.github/workflows/release.yml:16`).
+
+### SEC-008: Incomplete required-check coverage on `main` — resolved
+
+Branch protection required only the Windows and Linux validation jobs. A pull request could therefore remain mergeable when dependency auditing, compatibility, or CodeQL checks failed.
+
+Resolution:
+
+- Required checks now include dependency auditing, stable macOS, minimum VS Code compatibility, and both CodeQL analyses in addition to Windows and Linux validation.
+- Branch protection is enforced for administrators, while one approving review, stale-review dismissal, conversation resolution, linear history, and force-push/deletion blocking remain enabled.
 
 ## Low-Severity Findings
 
@@ -59,6 +80,25 @@ Resolution:
 
 - The test now saves the exact `globalValue` returned by `configuration.inspect(...)` and restores that value after the smoke test (`test/integration/suite/index.js:30`, `test/integration/suite/index.js:46`).
 - The integration runner now reports failures explicitly and sets a non-zero process exit code, so CI cannot depend on unhandled-rejection behavior (`test/integration/runTest.js:24`).
+
+### SEC-009: Workspace Trust invariant had only structural coverage — resolved
+
+The metadata test confirmed that trust and terminal calls existed in the source but did not execute the registered command in an untrusted state. A misplaced future check could therefore satisfy the regular expression without preserving the security boundary.
+
+Resolution:
+
+- A behavioral test invokes the registered command callback with `workspace.isTrusted` false and verifies that configuration is not resolved, no terminal is created, and no text is sent (`test/extension.test.js:83`).
+- A trusted-path companion test verifies that the global user command is sent while a hostile workspace value is ignored (`test/extension.test.js:103`).
+
+### SEC-010: Dependency audit ran only after repository activity — resolved
+
+New advisories disclosed after the last push could remain visible only as repository alerts until another branch or pull-request run occurred.
+
+Resolution:
+
+- CI now runs the locked dependency audit every Monday and supports manual dispatch (`.github/workflows/ci.yml:8`).
+- Scheduled runs skip the Extension Host platform matrix and execute only the dependency audit (`.github/workflows/ci.yml:21`, `.github/workflows/ci.yml:56`).
+- Periodic Dependabot version-update pull requests remain intentionally disabled.
 
 ## Reviewed Design Risks
 
@@ -87,5 +127,6 @@ The security conclusions are supported by:
 - package-content inspection with `vsce ls`;
 - `npm audit --package-lock-only --audit-level=high`;
 - review of GitHub workflow permissions, triggers, and immutable action references.
+- live verification of required branch checks, review enforcement, CodeQL, secret scanning, and push protection.
 
 This review covers the launcher repository only. Kimi Code CLI, VS Code, compatible editors, user shell configuration, and external providers remain outside its trust boundary.

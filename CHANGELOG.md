@@ -6,6 +6,13 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and
 
 ## Unreleased
 
+### Security
+
+- Updated transitive `js-yaml` and `undici` development dependencies to remediate current high-severity advisories
+- Added behavioral regression coverage proving that programmatic launches remain blocked in untrusted workspaces and workspace-controlled commands are ignored
+- Added a weekly lockfile security audit without re-enabling periodic dependency version-update pull requests
+- Expanded required `main` checks to cover dependency auditing, compatibility, and CodeQL, and applied branch protection to administrators
+
 ## 0.1.4 - 2026-08-02
 
 ### Changed

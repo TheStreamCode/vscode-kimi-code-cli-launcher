@@ -5,6 +5,9 @@ on:
     branches:
       - main
   pull_request:
+  workflow_dispatch:
+  schedule:
+    - cron: '17 6 * * 1'
 
 permissions:
   contents: read
@@ -15,6 +18,7 @@ concurrency:
 
 jobs:
   validate:
+    if: github.event_name != 'schedule'
     runs-on: ${{ matrix.os }}
     timeout-minutes: 15
     strategy:
@@ -49,6 +53,7 @@ jobs:
         run: xvfb-run -a npm run check
 
   compatibility:
+    if: github.event_name != 'schedule'
     name: Compatibility (${{ matrix.os }}, VS Code ${{ matrix.vscode }})
     runs-on: ${{ matrix.os }}
     timeout-minutes: 15

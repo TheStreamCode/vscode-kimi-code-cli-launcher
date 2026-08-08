@@ -173,6 +173,9 @@ test('CI validates securely across supported platforms and editor versions', () 
   assert.match(workflow, /npm ci --ignore-scripts/);
   assert.match(workflow, /npm run check/);
   assert.match(workflow, /npm run check:security/);
+  assert.match(workflow, /workflow_dispatch:/);
+  assert.match(workflow, /schedule:\s+- cron: '17 6 \* \* 1'/);
+  assert.equal(workflow.match(/if: github\.event_name != 'schedule'/g)?.length, 2);
   assert.match(workflow, /permissions:\s+contents: read/);
   assert.match(workflow, /actions\/checkout@[0-9a-f]{40} # v7/);
   assert.match(workflow, /actions\/setup-node@[0-9a-f]{40} # v6/);
