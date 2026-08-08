@@ -213,6 +213,8 @@ Useful commands:
 | `npm run check` | Run lint, formatting, type-check, all tests, and package-content inspection |
 | `npm run package` | Build the installable VSIX |
 
+CI also runs the locked dependency audit every Monday. Scheduled runs skip the Extension Host matrix and execute only the security audit.
+
 To test a specific VS Code version:
 
 ```powershell
