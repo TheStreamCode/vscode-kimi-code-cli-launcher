@@ -35,7 +35,7 @@ test('package metadata exposes the stable launcher interface', () => {
     'Launch Kimi Code CLI from the VS Code editor toolbar in one click. Opens a fresh side terminal in your workspace. Unofficial; Windows, macOS and Linux.',
   );
   assert.equal(packageJson.publisher, 'mikesoft');
-  assert.equal(packageJson.version, '0.1.4');
+  assert.equal(packageJson.version, '0.1.5');
   assert.equal(JSON.parse(readText('package-lock.json')).version, packageJson.version);
   assert.equal(packageJson.private, true);
   assert.equal(packageJson.icon, 'media/icon.png');
@@ -89,11 +89,14 @@ test('runtime stays a transparent terminal launcher', () => {
 
 test('blue avatar assets are packaged at suitable resolutions', () => {
   const marketplaceIcon = readPngSize('media/icon.png');
+  const launcherDemo = readPngSize('media/launcher-demo.png');
   const lightMark = readText('media/launcher-mark-light.svg');
   const darkMark = readText('media/launcher-mark-dark.svg');
 
   assert.equal(marketplaceIcon.width, 512);
   assert.equal(marketplaceIcon.height, 512);
+  assert.equal(launcherDemo.width, 1440);
+  assert.equal(launcherDemo.height, 900);
 
   for (const mark of [lightMark, darkMark]) {
     assert.match(mark, /<svg/i);
@@ -102,6 +105,20 @@ test('blue avatar assets are packaged at suitable resolutions', () => {
     assert.match(mark, /fill="#FFFFFF"/);
     assert.doesNotMatch(mark, /<image|href=|data:/i);
   }
+});
+
+test('GitHub presentation assets preserve exact product identity', () => {
+  const socialPreview = readPngSize('.github/social-preview.png');
+  const socialPreviewSource = readText('.github/social-preview.html');
+
+  assert.equal(socialPreview.width, 1280);
+  assert.equal(socialPreview.height, 640);
+  assert.match(socialPreviewSource, /Kimi Code CLI Launcher/);
+  assert.match(socialPreviewSource, /VS Code extension/);
+  assert.match(socialPreviewSource, /Windows/);
+  assert.match(socialPreviewSource, /macOS/);
+  assert.match(socialPreviewSource, /Linux/);
+  assert.match(socialPreviewSource, /\.\.\/media\/icon\.png/);
 });
 
 test('README documents setup, trust, privacy, and official guidance', () => {
@@ -130,11 +147,11 @@ test('README documents setup, trust, privacy, and official guidance', () => {
   assert.match(readme, /does not install Kimi Code CLI/i);
   assert.match(readme, /does not collect telemetry, analytics, or personal data/i);
   assert.match(readme, /workspace of the active editor/i);
-  assert.match(readme, /npm run check/);
-  assert.match(readme, /## Environment Variables/);
-  assert.match(readme, /## Build and Release/);
-  assert.match(readme, /vscode-kimi-code-cli-launcher-0\.1\.4\.vsix/);
-  assert.doesNotMatch(readme, /vscode-kimi-code-cli-launcher-0\.1\.[123]\.vsix/);
+  assert.match(readText('CONTRIBUTING.md'), /npm run check/);
+  assert.match(readme, /media\/launcher-demo\.png/);
+  assert.match(readme, /Real VS Code Extension Host capture/);
+  assert.match(readme, /vscode-kimi-code-cli-launcher-0\.1\.5\.vsix/);
+  assert.doesNotMatch(readme, /vscode-kimi-code-cli-launcher-0\.1\.[1-4]\.vsix/);
 });
 
 test('README documents every published distribution channel', () => {
@@ -155,9 +172,9 @@ test('public governance documents use consistent identity and support links', ()
   assert.match(readText('SECURITY.md'), /info@mikesoft\.it/);
   assert.match(readText('SUPPORT.md'), /vscode-kimi-code-cli-launcher\/issues/);
   assert.match(readText('CITATION.cff'), /title: "Kimi Code CLI Launcher"/);
-  assert.match(readText('CITATION.cff'), /version: "0\.1\.4"/);
-  assert.match(readText('CITATION.cff'), /date-released: "2026-08-02"/);
-  assert.match(readText('CHANGELOG.md'), /^## 0\.1\.4 - 2026-08-02$/m);
+  assert.match(readText('CITATION.cff'), /version: "0\.1\.5"/);
+  assert.match(readText('CITATION.cff'), /date-released: "2026-08-08"/);
+  assert.match(readText('CHANGELOG.md'), /^## 0\.1\.5 - 2026-08-08$/m);
   assert.match(readText('AGENTS.md'), /user-level configuration only/i);
 });
 
@@ -202,6 +219,9 @@ test('release workflow validates, audits, packages, and publishes matching tags'
   assert.match(workflow, /xvfb-run -a npm run check/);
   assert.match(workflow, /npm run check:security/);
   assert.match(workflow, /npm run package/);
+  assert.match(workflow, /sha256sum "\$VSIX" > "\$VSIX\.sha256"/);
+  assert.match(workflow, /"\$VSIX" "\$VSIX\.sha256"/);
+  assert.match(workflow, /Kimi Code CLI Launcher \$GITHUB_REF_NAME/);
   assert.match(workflow, /gh release (?:upload|create)/);
   assert.doesNotMatch(workflow, /uses: actions\/(?:checkout|setup-node)@v\d+/);
 });

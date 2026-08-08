@@ -6,6 +6,19 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and
 
 ## Unreleased
 
+## 0.1.5 - 2026-08-08
+
+### Added
+
+- Added a real Extension Host workflow image and a custom, reproducible GitHub social preview
+- Added SHA-256 checksum assets to GitHub releases
+
+### Changed
+
+- Reworked the README around installation, product value, trust boundaries, and the distinction from the official Kimi extension
+- Moved detailed development, validation, packaging, and release guidance into `CONTRIBUTING.md`
+- Standardized GitHub release titles and prepared curated release notes
+
 ### Security
 
 - Updated transitive `js-yaml` and `undici` development dependencies to remediate current high-severity advisories

@@ -1,97 +1,88 @@
+<p align="center">
+  <img src="media/icon.png" width="112" height="112" alt="Kimi Code CLI Launcher blue avatar">
+</p>
+
 # Kimi Code CLI Launcher for VS Code
 
-[![VS Marketplace](https://vsmarketplacebadges.dev/version-short/mikesoft.vscode-kimi-code-cli-launcher.svg)](https://marketplace.visualstudio.com/items?itemName=mikesoft.vscode-kimi-code-cli-launcher)
-[![Open VSX](https://img.shields.io/open-vsx/v/mikesoft/vscode-kimi-code-cli-launcher?label=open%20vsx)](https://open-vsx.org/extension/mikesoft/vscode-kimi-code-cli-launcher)
-[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
-[![GitHub Release](https://img.shields.io/github/v/release/TheStreamCode/vscode-kimi-code-cli-launcher)](https://github.com/TheStreamCode/vscode-kimi-code-cli-launcher/releases/latest)
-[![CI](https://github.com/TheStreamCode/vscode-kimi-code-cli-launcher/actions/workflows/ci.yml/badge.svg)](https://github.com/TheStreamCode/vscode-kimi-code-cli-launcher/actions/workflows/ci.yml)
+<p align="center">
+  <strong>Open Kimi Code CLI in a fresh, workspace-aware side terminal — in one click.</strong>
+</p>
 
-Kimi Code CLI Launcher is a lightweight, unofficial VS Code extension that starts Kimi Code CLI directly from the editor toolbar. One click opens `kimi` in a new side terminal rooted in the current workspace. There is no hidden process, automatic installer, sidebar, or telemetry.
+<p align="center">
+  <a href="https://marketplace.visualstudio.com/items?itemName=mikesoft.vscode-kimi-code-cli-launcher"><img src="https://vsmarketplacebadges.dev/version-short/mikesoft.vscode-kimi-code-cli-launcher.svg" alt="VS Marketplace version"></a>
+  <a href="https://open-vsx.org/extension/mikesoft/vscode-kimi-code-cli-launcher"><img src="https://img.shields.io/open-vsx/v/mikesoft/vscode-kimi-code-cli-launcher?label=open%20vsx" alt="Open VSX version"></a>
+  <a href="https://github.com/TheStreamCode/vscode-kimi-code-cli-launcher/actions/workflows/ci.yml"><img src="https://github.com/TheStreamCode/vscode-kimi-code-cli-launcher/actions/workflows/ci.yml/badge.svg" alt="CI status"></a>
+  <a href="https://github.com/TheStreamCode/vscode-kimi-code-cli-launcher/releases/latest"><img src="https://img.shields.io/github/v/release/TheStreamCode/vscode-kimi-code-cli-launcher" alt="Latest GitHub release"></a>
+  <a href="LICENSE"><img src="https://img.shields.io/badge/License-MIT-blue.svg" alt="MIT License"></a>
+</p>
 
-The extension uses standard VS Code terminal APIs and is designed for compatible editors such as Cursor and Windsurf on Windows, macOS, and Linux. Automated Extension Host tests cover VS Code itself.
+<p align="center">
+  <a href="https://marketplace.visualstudio.com/items?itemName=mikesoft.vscode-kimi-code-cli-launcher"><strong>Install from VS Marketplace</strong></a>
+  ·
+  <a href="https://open-vsx.org/extension/mikesoft/vscode-kimi-code-cli-launcher"><strong>Install from Open VSX</strong></a>
+  ·
+  <a href="https://github.com/TheStreamCode/vscode-kimi-code-cli-launcher/releases/latest"><strong>Download VSIX</strong></a>
+</p>
 
-> **Disclaimer**
-> This extension is unofficial and is not affiliated with, endorsed by, or sponsored by Moonshot AI or Kimi. The Kimi name identifies the compatible CLI only. The blue avatar is an independent redraw for this launcher, not an official Kimi asset. See [TRADEMARKS.md](TRADEMARKS.md).
+Kimi Code CLI Launcher is a lightweight, unofficial VS Code extension that starts `kimi` directly from the editor toolbar. Every click opens a new side terminal in the workspace of the active editor. There is no hidden process, automatic installer, sidebar, terminal-output inspection, or telemetry.
 
-## At a Glance
+> **Unofficial project:** this extension is unofficial and is not affiliated with, endorsed by, or sponsored by Moonshot AI or Kimi. The Kimi name identifies the compatible CLI only. The luminous blue avatar is an independent redraw for this launcher, not an official Kimi asset. See [TRADEMARKS.md](TRADEMARKS.md).
 
-| | Kimi Code CLI Launcher |
-| --- | --- |
-| **Purpose** | Launch Kimi Code CLI from the VS Code editor toolbar |
-| **Current release** | `0.1.4` |
-| **Available on** | VS Code Marketplace, Open VSX, GitHub Releases |
-| **Extension id** | `mikesoft.vscode-kimi-code-cli-launcher` |
-| **Default command** | `kimi` |
-| **Terminal behavior** | Opens a fresh side terminal for every launch |
-| **Working directory** | Uses the workspace of the active editor when available |
-| **Platforms** | Windows, macOS, and Linux |
-| **Privacy** | No telemetry, analytics, or personal-data collection |
+<p align="center">
+  <img src="media/launcher-demo.png" alt="Kimi Code CLI Launcher opening a fresh side terminal in a VS Code Extension Host">
+</p>
 
-## Features
-
-- Adds a luminous blue avatar launcher to the editor title toolbar
-- Opens a fresh terminal beside the active editor on every launch
-- Uses the workspace of the active editor, then the first open workspace as fallback
-- Supports a configurable Kimi command and terminal label
-- Supports quoted executable paths on Windows
-- Requires Workspace Trust before sending a command
-- Reads the launch command from user-level configuration only
-- Does not collect telemetry, inspect terminal output, or install software
+<p align="center"><sub>Real VS Code Extension Host capture. The terminal text uses a harmless demo command; the launcher never inspects terminal output.</sub></p>
 
 ## Quick Start
 
-1. Install Kimi Code CLI from the official guide.
+1. Install Kimi Code CLI from the [official getting-started guide](https://www.kimi.com/code/docs/en/kimi-code-cli/guides/getting-started.html).
 2. Confirm that `kimi --version` works in a regular integrated terminal.
 3. Install **Kimi Code CLI Launcher** from the [VS Code Marketplace](https://marketplace.visualstudio.com/items?itemName=mikesoft.vscode-kimi-code-cli-launcher) or [Open VSX](https://open-vsx.org/extension/mikesoft/vscode-kimi-code-cli-launcher).
 4. Open a project file and click the blue avatar in the editor toolbar.
 
 Each click starts an independent Kimi Code CLI session in a new side terminal.
 
-## Requirements
+## Why This Launcher
 
-To use the extension:
+- One-click access from the editor title toolbar
+- A fresh side terminal for every session
+- Active-editor workspace selection, with the first workspace as fallback
+- User-level-only command configuration; workspace values are ignored
+- Workspace Trust enforced even for programmatic command invocation
+- No runtime dependencies, telemetry, installers, downloads, or hidden processes
+- Windows, macOS, and Linux support through standard VS Code APIs
 
-- VS Code `^1.103.0` or a compatible editor
-- Kimi Code CLI available in the integrated terminal environment
-- Git for Windows before the first Kimi launch on Windows
+## Kimi Code CLI Launcher vs. the Official Kimi Code Extension
 
-Follow the [official Kimi Code CLI getting-started guide](https://www.kimi.com/code/docs/en/kimi-code-cli/guides/getting-started.html) for current installation instructions.
+This project is a terminal-first launcher. It opens the native Kimi Code CLI experience in an integrated terminal; it does not recreate editor chat or agent panels.
 
-The recommended Windows installer is:
+The [official Kimi Code extension](https://marketplace.visualstudio.com/items?itemName=moonshot-ai.kimi-code), maintained by Moonshot AI, provides a different editor integration and does not launch Kimi Code CLI in a terminal.
 
-```powershell
-irm https://code.kimi.com/kimi-code/install.ps1 | iex
-```
+| | This launcher | Official Kimi Code extension |
+| --- | --- | --- |
+| **Publisher** | Mikesoft, unofficial | Moonshot AI, official |
+| **Primary experience** | Native Kimi Code CLI in a side terminal | Official Kimi editor integration |
+| **Launches `kimi` in a terminal** | Yes, with one click | No |
+| **Terminal sessions** | Fresh terminal on every click | Not provided by the official extension |
 
-The recommended macOS and Linux installer is:
+## At a Glance
 
-```bash
-curl -fsSL https://code.kimi.com/kimi-code/install.sh | bash
-```
-
-The official npm alternative requires Node.js 22.19.0 or later:
-
-```bash
-npm install -g @moonshot-ai/kimi-code
-```
-
-Verify the CLI before using the launcher:
-
-```bash
-kimi --version
-```
-
-On Windows, Kimi uses the Git Bash bundled with Git for Windows. If Git Bash is installed in a custom location, set `KIMI_SHELL_PATH` to the absolute path of `bash.exe`.
-
-This extension does not install Kimi Code CLI or modify shell configuration.
+| | Kimi Code CLI Launcher |
+| --- | --- |
+| **Current release** | `0.1.5` |
+| **Extension id** | `mikesoft.vscode-kimi-code-cli-launcher` |
+| **Default command** | `kimi` |
+| **Working directory** | Workspace of the active editor, then the first open workspace |
+| **Available on** | VS Code Marketplace, Open VSX, GitHub Releases |
+| **Platforms** | Windows, macOS, and Linux |
+| **Privacy** | No telemetry, analytics, or personal-data collection |
 
 ## Installation
 
-The extension id is `mikesoft.vscode-kimi-code-cli-launcher`.
-
 ### VS Code Marketplace
 
-Search for **Kimi Code CLI Launcher** in the Extensions view, open the [Marketplace listing](https://marketplace.visualstudio.com/items?itemName=mikesoft.vscode-kimi-code-cli-launcher), or run:
+Search for **Kimi Code CLI Launcher**, open the [Marketplace listing](https://marketplace.visualstudio.com/items?itemName=mikesoft.vscode-kimi-code-cli-launcher), or run:
 
 ```bash
 code --install-extension mikesoft.vscode-kimi-code-cli-launcher
@@ -99,19 +90,34 @@ code --install-extension mikesoft.vscode-kimi-code-cli-launcher
 
 ### Open VSX
 
-Editors that use the [Open VSX Registry](https://open-vsx.org/extension/mikesoft/vscode-kimi-code-cli-launcher), such as VSCodium, Cursor, and Windsurf, resolve the same extension id from their own Extensions view.
+VSCodium, Cursor, Windsurf, and other editors backed by Open VSX can install the same extension id from the [Open VSX listing](https://open-vsx.org/extension/mikesoft/vscode-kimi-code-cli-launcher).
 
 ### VSIX from a GitHub release
 
-Download `vscode-kimi-code-cli-launcher-0.1.4.vsix` from the [latest GitHub release](https://github.com/TheStreamCode/vscode-kimi-code-cli-launcher/releases/latest), then run:
+Download `vscode-kimi-code-cli-launcher-0.1.5.vsix` and its `.sha256` checksum from the [latest GitHub release](https://github.com/TheStreamCode/vscode-kimi-code-cli-launcher/releases/latest), then run:
 
 ```bash
-code --install-extension vscode-kimi-code-cli-launcher-0.1.4.vsix
+code --install-extension vscode-kimi-code-cli-launcher-0.1.5.vsix
 ```
 
-Alternatively, use **Extensions: Install from VSIX...** from the VS Code Command Palette.
+You can also use **Extensions: Install from VSIX...** from the Command Palette.
 
-Open a project file and click the blue avatar in the editor toolbar. Each click starts a separate Kimi Code CLI session beside the active editor.
+## Requirements
+
+- VS Code `^1.103.0` or a compatible editor
+- Kimi Code CLI available in the integrated terminal environment
+- Git for Windows before the first Kimi launch on Windows
+
+Use the [official Kimi Code CLI guide](https://www.kimi.com/code/docs/en/kimi-code-cli/guides/getting-started.html) for current installation instructions. The official npm alternative requires Node.js 22.19.0 or later:
+
+```bash
+npm install -g @moonshot-ai/kimi-code
+kimi --version
+```
+
+On Windows, Kimi uses the Git Bash bundled with Git for Windows. If Git Bash is installed in a custom location, set `KIMI_SHELL_PATH` to the absolute path of `bash.exe`.
+
+This extension does not install Kimi Code CLI or modify shell configuration. The official Kimi update command is `kimi upgrade`.
 
 ## Configuration
 
@@ -122,136 +128,25 @@ Open a project file and click the blue avatar in the editor toolbar. Each click 
 
 Open **Kimi Code CLI Launcher: Open Settings** from the Command Palette.
 
-Default command:
-
 ```json
 "kimiCodeCliLauncher.cliCommand": "kimi"
 ```
 
-Windows path with spaces:
+For a Windows executable path containing spaces:
 
 ```json
 "kimiCodeCliLauncher.cliCommand": "\"C:\\Program Files\\Kimi Code\\kimi.exe\""
 ```
 
-The command is deliberately user-configurable and is sent visibly to the active shell. Review it before use, and do not place API keys or other secrets in this setting.
-
-## Environment Variables
-
-The launcher itself requires no `.env` file and reads no environment variables or credentials. New terminals inherit the environment that VS Code provides to the integrated shell.
-
-Kimi Code CLI manages its own configuration outside this extension. Relevant official variables include:
-
-- `KIMI_SHELL_PATH` for a custom Git Bash path on Windows
-- `KIMI_CODE_HOME` for a custom Kimi data directory
-
-Configure provider credentials through Kimi's documented login or configuration flow. Never commit `.env` files; this repository ignores them by default while allowing a future redacted `.env.example`.
+Treat the setting as executable code: review it before use and never place API keys or other secrets in it. The launcher reads no `.env` files or credentials. New terminals simply inherit the environment supplied by VS Code; Kimi owns its own login and provider configuration.
 
 ## How It Works
 
-Each click creates a new integrated terminal beside the editor and sends the configured command to it. Existing terminals are never reused or inspected.
+Each click creates a new integrated terminal beside the editor and visibly sends the configured command. Existing terminals are never reused or inspected.
 
-The terminal starts in the workspace of the active editor. If that file is outside the workspace, the first open workspace folder is used. With no open workspace, VS Code selects the terminal directory.
+The active editor selects the preferred workspace. If its file is outside the workspace, the first open workspace is used; with no workspace, VS Code chooses the terminal directory.
 
-The command is resolved from the user-level setting rather than workspace-controlled configuration. The launcher also checks `workspace.isTrusted` at execution time, so invoking the command programmatically cannot bypass Workspace Trust.
-
-### Architecture
-
-| Path | Responsibility |
-| --- | --- |
-| `src/extension.ts` | VS Code activation, command registration, trust gate, and terminal creation |
-| `src/command-utils.ts` | Pure configuration, naming, settings-query, and workspace-resolution helpers |
-| `test/*.test.js` | Unit, metadata, packaging-contract, and documentation tests |
-| `test/integration/` | Real VS Code Extension Host smoke test |
-| `media/` | Existing Marketplace and toolbar artwork |
-
-The runtime has no production dependencies, network client, filesystem access, child process, background service, or telemetry SDK. The compiled JavaScript in `out/` is generated locally and excluded from Git.
-
-## Kimi Code CLI Launcher vs. the Official Kimi Code Extension
-
-This project is a terminal-first launcher. It opens the native Kimi Code CLI interface in an integrated terminal and intentionally does not reproduce editor chat, agent panels, or other IDE integration.
-
-The [official Kimi Code extension](https://marketplace.visualstudio.com/items?itemName=moonshot-ai.kimi-code), maintained by Moonshot AI, provides a different editor integration and does not launch Kimi Code CLI in a terminal.
-
-| | This launcher | Official Kimi Code extension |
-| --- | --- | --- |
-| **Publisher** | Mikesoft, unofficial | Moonshot AI, official |
-| **Primary experience** | Native Kimi Code CLI in a side terminal | Official Kimi editor integration |
-| **Launches `kimi` in a terminal** | Yes, with one click | No |
-| **Launch command** | Configurable; defaults to `kimi` | Not a terminal CLI launcher |
-| **Terminal sessions** | Fresh terminal on every click | Not provided by the official extension |
-
-## Development
-
-Development requirements:
-
-- Node.js 22.19.0 or later; `.nvmrc` selects the maintained Node.js 22 line
-- npm and Git
-- Windows, macOS, or Linux; Linux integration tests require Xvfb in headless environments
-
-Install exactly the locked dependency graph:
-
-```bash
-npm ci --ignore-scripts
-```
-
-The ignored install scripts belong to optional publishing/signing dependencies and are not needed to compile, test, inspect, or package this extension.
-
-Useful commands:
-
-| Command | Purpose |
-| --- | --- |
-| `npm run compile` | Compile TypeScript to `out/` with source maps |
-| `npm run watch` | Recompile while source files change |
-| `npm run typecheck` | Run strict TypeScript checks without emitting files |
-| `npm run lint` | Lint TypeScript and JavaScript with Biome |
-| `npm run format:check` | Verify source and test formatting |
-| `npm run format` | Apply the configured formatter |
-| `npm run test:unit` | Compile and run unit and metadata tests |
-| `npm run test:integration` | Compile and run the VS Code Extension Host smoke test |
-| `npm run check:security` | Audit the locked npm dependency graph at high severity |
-| `npm run check` | Run lint, formatting, type-check, all tests, and package-content inspection |
-| `npm run package` | Build the installable VSIX |
-
-CI also runs the locked dependency audit every Monday. Scheduled runs skip the Extension Host matrix and execute only the security audit.
-
-To test a specific VS Code version:
-
-```powershell
-$env:VSCODE_TEST_VERSION = '1.103.0'
-npm run test:integration
-```
-
-On Linux CI or another headless Linux host:
-
-```bash
-xvfb-run -a npm run check
-```
-
-See [CONTRIBUTING.md](CONTRIBUTING.md) for change requirements and [AGENTS.md](AGENTS.md) for repository-specific AI-agent guidance.
-
-## Build and Release
-
-Create a local VSIX after the full validation suite passes:
-
-```bash
-npm run check
-npm run check:security
-npm run package
-```
-
-The package is named `vscode-kimi-code-cli-launcher-<version>.vsix` and is intentionally ignored by Git.
-
-For a release, update `package.json`, `package-lock.json`, `CITATION.cff`, and `CHANGELOG.md` together, including the real release date. Commit the validated changes, then push a matching `v<version>` tag. The `Release` workflow verifies the tag/version match, reruns validation and the dependency audit, builds the VSIX, and creates or updates the GitHub release.
-
-Registry publishing is a separate, manual maintainer step performed with the VSIX produced above:
-
-```bash
-npx @vscode/vsce publish --packagePath vscode-kimi-code-cli-launcher-<version>.vsix
-npx ovsx publish vscode-kimi-code-cli-launcher-<version>.vsix
-```
-
-Those commands need Marketplace and Open VSX publisher tokens. The tokens are never stored in this repository or in GitHub Actions secrets, so neither CI nor an automated agent can publish on the maintainer's behalf.
+The launch command is resolved from user-level configuration only. The extension also checks `workspace.isTrusted` at execution time, so invoking the command programmatically cannot bypass Workspace Trust.
 
 ## Troubleshooting
 
@@ -275,29 +170,33 @@ Open a file from the target workspace before clicking the launcher. The active e
 
 ### How do I run Kimi Code CLI in VS Code?
 
-Install Kimi Code CLI from the official guide, verify `kimi --version` in an integrated terminal, install this launcher's VSIX, and click the blue avatar while a project file is active.
+Install Kimi Code CLI from the official guide, verify `kimi --version`, install this extension, and click the blue avatar while a project file is active.
 
 ### Is this the official Kimi VS Code extension?
 
 No. This is an independent, unofficial terminal launcher maintained by Mikesoft.
 
-### Does the launcher install or update Kimi Code CLI?
+### Does the launcher install, update, or authenticate Kimi Code CLI?
 
-No. Install and update Kimi separately using the [official Kimi documentation](https://www.kimi.com/code/docs/en/kimi-code-cli/guides/getting-started.html). The official update command is `kimi upgrade`.
+No. Install, update, login, and provider configuration remain owned by Kimi Code CLI.
 
 ### Does the launcher reuse an existing Kimi terminal?
 
-No. Every click creates a fresh terminal and starts a separate Kimi Code CLI session.
+No. Every click creates a fresh terminal and starts a separate session.
 
 ### Does it work with Cursor and Windsurf?
 
-The launcher is designed around standard VS Code extension and terminal APIs used by compatible editors. Compatibility can vary by editor release; automated Extension Host coverage is provided for VS Code.
+The launcher uses standard VS Code extension and terminal APIs supported by compatible editors. Compatibility can vary by editor release; automated Extension Host coverage is provided for VS Code itself.
+
+## Development
+
+The runtime is deliberately small and has no production dependencies. For the architecture, locked install, validation commands, compatibility matrix, packaging, and release procedure, see [CONTRIBUTING.md](CONTRIBUTING.md).
 
 ## Privacy and Security
 
 The launcher does not collect telemetry, analytics, or personal data. It does not install software, create temporary scripts, inspect terminal output, access the network, or invoke hidden child processes.
 
-The configured command is sent visibly to the integrated terminal only after Workspace Trust is granted. See the [security policy](SECURITY.md) and the latest [repository security review](docs/SECURITY_REVIEW.md).
+The configured command is sent visibly to the integrated terminal only after Workspace Trust is granted. See [SECURITY.md](SECURITY.md) and the dated [security review](docs/SECURITY_REVIEW.md).
 
 ## Support
 

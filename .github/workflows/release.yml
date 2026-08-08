@@ -42,7 +42,12 @@ jobs:
         run: npm run check:security
 
       - name: Build VSIX
-        run: npm run package
+        shell: bash
+        run: |
+          npm run package
+          PACKAGE_VERSION="$(node -p "require('./package.json').version")"
+          VSIX="vscode-kimi-code-cli-launcher-$PACKAGE_VERSION.vsix"
+          sha256sum "$VSIX" > "$VSIX.sha256"
 
       - name: Create or update GitHub release
         shell: bash
@@ -52,7 +57,7 @@ jobs:
           PACKAGE_VERSION="$(node -p "require('./package.json').version")"
           VSIX="vscode-kimi-code-cli-launcher-$PACKAGE_VERSION.vsix"
           if gh release view "$GITHUB_REF_NAME" >/dev/null 2>&1; then
-            gh release upload "$GITHUB_REF_NAME" "$VSIX" --clobber
+            gh release upload "$GITHUB_REF_NAME" "$VSIX" "$VSIX.sha256" --clobber
           else
-            gh release create "$GITHUB_REF_NAME" "$VSIX" --generate-notes --title "$GITHUB_REF_NAME" --verify-tag
+            gh release create "$GITHUB_REF_NAME" "$VSIX" "$VSIX.sha256" --generate-notes --title "Kimi Code CLI Launcher $GITHUB_REF_NAME" --verify-tag
           fi

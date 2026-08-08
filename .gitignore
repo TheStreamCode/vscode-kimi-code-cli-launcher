@@ -6,6 +6,7 @@ out/**/*.map
 .env.*
 !.env.example
 *.vsix
+*.vsix.sha256
 *.tgz
 .vscode-test/
 .vsce/
