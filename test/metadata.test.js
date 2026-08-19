@@ -166,7 +166,7 @@ test('README documents every published distribution channel', () => {
 });
 
 test('public governance documents use consistent identity and support links', () => {
-  assert.match(readText('LICENSE'), /Copyright \(c\) 2026 Michael Gasperini \(Mikesoft\)/);
+  assert.match(readText('LICENSE'), /Copyright \(c\) 2026 Michael Gasperini \(TheStreamCode\)/);
   assert.match(readText('TRADEMARKS.md'), /unofficial/i);
   assert.match(readText('TRADEMARKS.md'), /Moonshot AI/);
   assert.match(readText('SECURITY.md'), /info@mikesoft\.it/);
