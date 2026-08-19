@@ -206,4 +206,4 @@ Maintained by [Michael Gasperini (Mikesoft)](https://mikesoft.it).
 
 ## License
 
-Released under the [MIT License](LICENSE).
+This project is licensed under the [MIT License](LICENSE).
