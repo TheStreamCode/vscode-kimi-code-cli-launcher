@@ -128,9 +128,9 @@
     "check": "npm run lint && npm run format:check && npm run typecheck && npm test && npm run package:list"
   },
   "devDependencies": {
-    "@biomejs/biome": "^2.5.6",
+    "@biomejs/biome": "^2.5.14",
     "@types/node": "^22.20.0",
-    "@types/vscode": "1.103.0",
+    "@types/vscode": "1.138.0",
     "@vscode/test-electron": "^3.1.0",
     "@vscode/vsce": "^3.9.2",
     "typescript": "^7.0.2"
