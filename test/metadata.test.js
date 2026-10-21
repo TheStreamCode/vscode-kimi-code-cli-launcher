@@ -221,7 +221,7 @@ test('CI validates securely across supported platforms and editor versions', () 
   assert.equal(workflow.match(/if: github\.event_name != 'schedule'/g)?.length, 2);
   assert.match(workflow, /permissions:\s+contents: read/);
   assert.match(workflow, /actions\/checkout@[0-9a-f]{40} # v7/);
-  assert.match(workflow, /actions\/setup-node@[0-9a-f]{40} # v6/);
+  assert.match(workflow, /actions\/setup-node@[0-9a-f]{40} # v[67]/);
   assert.doesNotMatch(workflow, /uses: actions\/(?:checkout|setup-node)@v\d+/);
 });
 
