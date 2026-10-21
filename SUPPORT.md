@@ -6,7 +6,7 @@ Kimi Code CLI Launcher is maintained by Mikesoft.
 
 Use GitHub Issues for reproducible bugs, regressions, and feature requests:
 
-- https://github.com/TheStreamCode/vscode-kimi-code-cli-launcher/issues
+- [GitHub Issues](https://github.com/TheStreamCode/vscode-kimi-code-cli-launcher/issues)
 
 Include:
 
@@ -18,7 +18,11 @@ Include:
 - expected and actual result
 - visible terminal error, with sensitive data redacted
 
+## Questions and Workflows
+
+Use [GitHub Discussions](https://github.com/TheStreamCode/vscode-kimi-code-cli-launcher/discussions) for usage questions and workflows.
+
 ## General or Private Contact
 
-- Website: https://mikesoft.it
-- Email: info@mikesoft.it
+- Website: [mikesoft.it](https://mikesoft.it)
+- Email: [info@mikesoft.it](mailto:info@mikesoft.it)

@@ -4,10 +4,7 @@
   "description": "Launch Kimi Code CLI from the VS Code editor toolbar in one click. Opens a fresh side terminal in your workspace. Unofficial; Windows, macOS and Linux.",
   "publisher": "mikesoft",
   "version": "0.1.5",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/TheStreamCode/vscode-kimi-code-cli-launcher.git"
-  },
+  "repository": "github:TheStreamCode/vscode-kimi-code-cli-launcher",
   "author": {
     "name": "Michael Gasperini",
     "url": "https://mikesoft.it"
@@ -15,7 +12,7 @@
   "bugs": {
     "url": "https://github.com/TheStreamCode/vscode-kimi-code-cli-launcher/issues"
   },
-  "homepage": "https://github.com/TheStreamCode/vscode-kimi-code-cli-launcher#readme",
+  "homepage": "https://marketplace.visualstudio.com/items?itemName=mikesoft.vscode-kimi-code-cli-launcher",
   "sponsor": {
     "url": "https://github.com/sponsors/TheStreamCode"
   },
@@ -132,7 +129,7 @@
     "@types/node": "^22.20.0",
     "@types/vscode": "1.138.0",
     "@vscode/test-electron": "^3.1.0",
-    "@vscode/vsce": "^3.9.2",
+    "@vscode/vsce": "^4.0.0",
     "typescript": "^7.0.2"
   }
 }
