@@ -68,7 +68,7 @@ Use `npm ci --ignore-scripts` for a clean, reproducible install. Do not replace 
 
 - Update `README.md` for requirements, settings, commands, environment behavior, build, or release changes.
 - Add user-visible changes to the `Unreleased` section of `CHANGELOG.md`.
-- For a release, keep versions synchronized in `package.json`, `package-lock.json`, `CITATION.cff`, the README installation section, and `test/metadata.test.js`; keep the real release date synchronized between `CITATION.cff` and `CHANGELOG.md`. `npm version <x.y.z> --no-git-tag-version` is the supported way to update the manifest and the lockfile together.
+- For a release, keep versions synchronized in `package.json`, `package-lock.json`, `CITATION.cff`, and `test/metadata.test.js`; keep the real release date synchronized between `CITATION.cff` and `CHANGELOG.md`. `npm version <x.y.z> --no-git-tag-version` is the supported way to update the manifest and the lockfile together.
 - A `v<version>` tag triggers the GitHub release workflow. Do not create tags, push, publish, or upload Marketplace packages unless explicitly authorized.
 - The extension is published as `mikesoft.vscode-kimi-code-cli-launcher` on the VS Code Marketplace and on Open VSX. Both registries are updated manually by the maintainer with `vsce publish` and `ovsx publish`; the required tokens are deliberately absent from this repository, from the shell environment, and from GitHub Actions secrets, so no workflow or agent can publish. Never add them.
 - `main` is protected and requires one approving review. Land changes through a branch and a pull request; never self-approve or bypass the protection.
@@ -78,4 +78,4 @@ Use `npm ci --ignore-scripts` for a clean, reproducible install. Do not replace 
 
 - Confirm a dependency is used before adding it; prefer development-only tooling when runtime code does not need the package.
 - Review direct and transitive changes in `package-lock.json`, run the high-severity audit, and avoid forced major upgrades.
-- The absence of `.github/dependabot.yml` is intentional: periodic version-update PRs were disabled. Do not reintroduce them without maintainer approval; Dependabot security alerts are managed in repository settings.
+- `.github/dependabot.yml` keeps weekly grouped npm and GitHub Actions updates. Keep the configuration grouped and the open pull request limit bounded.

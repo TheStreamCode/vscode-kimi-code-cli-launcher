@@ -41,7 +41,12 @@ test('package metadata exposes the stable launcher interface', () => {
   assert.equal(packageJson.icon, 'media/icon.png');
   assert.equal(packageJson.engines.vscode, '^1.103.0');
   assert.equal(packageJson.devDependencies['@types/vscode'], '1.103.0');
-  assert.equal(packageJson.homepage, 'https://github.com/TheStreamCode/vscode-kimi-code-cli-launcher#readme');
+  assert.equal(packageJson.repository, 'github:TheStreamCode/vscode-kimi-code-cli-launcher');
+  assert.equal(packageJson.bugs.url, 'https://github.com/TheStreamCode/vscode-kimi-code-cli-launcher/issues');
+  assert.equal(
+    packageJson.homepage,
+    'https://marketplace.visualstudio.com/items?itemName=mikesoft.vscode-kimi-code-cli-launcher',
+  );
 
   assert.deepEqual(packageJson.capabilities.untrustedWorkspaces.restrictedConfigurations, [
     'kimiCodeCliLauncher.cliCommand',
@@ -121,20 +126,29 @@ test('GitHub presentation assets preserve exact product identity', () => {
   assert.match(socialPreviewSource, /\.\.\/media\/icon\.png/);
 });
 
-test('README documents setup, trust, privacy, and official guidance', () => {
+test('README follows the shared section order and documents setup, trust, privacy, and official guidance', () => {
   const readme = readText('README.md');
+  const headings = [...readme.matchAll(/^## (.+)$/gm)].map((match) => match[1]);
 
-  assert.match(readme, /^# Kimi Code CLI Launcher for VS Code$/m);
+  assert.match(readme, /^# Kimi Code CLI Launcher$/m);
+  assert.deepEqual(headings, [
+    'Install',
+    'Quick start',
+    'Features',
+    'Requirements',
+    'Configuration',
+    'Privacy and security',
+    'Troubleshooting',
+    'Development',
+    'Support',
+    'Contributing',
+    'License',
+  ]);
+  assert.match(readme, /actions\/workflows\/ci\.yml\/badge\.svg/);
+  assert.match(readme, /License-MIT/);
+  assert.match(readme, /Maintained by \[Michael Gasperini \(Mikesoft\)\]\(https:\/\/mikesoft\.it\)/);
   assert.match(readme, /lightweight, unofficial VS Code extension/i);
-  assert.match(readme, /## At a Glance/);
-  assert.match(readme, /## Quick Start/);
-  assert.match(readme, /## Kimi Code CLI Launcher vs\. the Official Kimi Code Extension/);
-  assert.match(readme, /marketplace\.visualstudio\.com\/items\?itemName=moonshot-ai\.kimi-code/);
-  assert.match(readme, /does not launch Kimi Code CLI in a terminal/);
   assert.match(readme, /github\.com\/TheStreamCode\/vscode-kimi-code-cli-launcher\/releases\/latest/);
-  assert.match(readme, /## Frequently Asked Questions/);
-  assert.match(readme, /### How do I run Kimi Code CLI in VS Code\?/);
-  assert.match(readme, /### Is this the official Kimi VS Code extension\?/);
   assert.match(readme, /new side terminal/i);
   assert.match(readme, /Windows, macOS, and Linux/);
   assert.match(readme, /unofficial and is not affiliated with, endorsed by, or sponsored by Moonshot AI or Kimi/i);
@@ -149,9 +163,21 @@ test('README documents setup, trust, privacy, and official guidance', () => {
   assert.match(readme, /workspace of the active editor/i);
   assert.match(readText('CONTRIBUTING.md'), /npm run check/);
   assert.match(readme, /media\/launcher-demo\.png/);
-  assert.match(readme, /Real VS Code Extension Host capture/);
-  assert.match(readme, /vscode-kimi-code-cli-launcher-0\.1\.5\.vsix/);
-  assert.doesNotMatch(readme, /vscode-kimi-code-cli-launcher-0\.1\.[1-4]\.vsix/);
+  assert.match(readme, /Real VS Code Extension Host capture/i);
+  assert.match(readme, /vscode-kimi-code-cli-launcher-<version>\.vsix/);
+  assert.doesNotMatch(readme, /vscode-kimi-code-cli-launcher-\d+\.\d+\.\d+\.vsix/);
+  assert.doesNotMatch(readme, /Current documented release/);
+});
+
+test('FAQ documents the difference from the official Kimi Code extension', () => {
+  const faq = readText('docs/FAQ.md');
+
+  assert.match(faq, /^# Frequently asked questions$/m);
+  assert.match(faq, /## Kimi Code CLI Launcher vs\. the official Kimi Code extension/);
+  assert.match(faq, /marketplace\.visualstudio\.com\/items\?itemName=moonshot-ai\.kimi-code/);
+  assert.match(faq, /does not launch Kimi Code CLI in a terminal/);
+  assert.match(faq, /## How do I run Kimi Code CLI in VS Code\?/);
+  assert.match(faq, /## Is this the official Kimi VS Code extension\?/);
 });
 
 test('README documents every published distribution channel', () => {
@@ -166,7 +192,7 @@ test('README documents every published distribution channel', () => {
 });
 
 test('public governance documents use consistent identity and support links', () => {
-  assert.match(readText('LICENSE'), /Copyright \(c\) 2026 Michael Gasperini \(TheStreamCode\)/);
+  assert.match(readText('LICENSE'), /Copyright \(c\) 2026 Michael Gasperini \(Mikesoft\)/);
   assert.match(readText('TRADEMARKS.md'), /unofficial/i);
   assert.match(readText('TRADEMARKS.md'), /Moonshot AI/);
   assert.match(readText('SECURITY.md'), /info@mikesoft\.it/);
