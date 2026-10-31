@@ -4,6 +4,12 @@ on:
   push:
     tags:
       - 'v*.*.*'
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: 'Release tag to publish (for example v0.1.5)'
+        required: true
+        type: string
 
 permissions:
   contents: read
@@ -11,6 +17,7 @@ permissions:
 jobs:
   github-release:
     name: Package GitHub release
+    if: github.event_name == 'push'
     runs-on: ubuntu-latest
     timeout-minutes: 15
     permissions:
@@ -61,3 +68,44 @@ jobs:
           else
             gh release create "$GITHUB_REF_NAME" "$VSIX" "$VSIX.sha256" --generate-notes --title "Kimi Code CLI Launcher $GITHUB_REF_NAME" --verify-tag
           fi
+
+  publish:
+    name: Publish released VSIX
+    if: github.event_name == 'workflow_dispatch'
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    permissions:
+      contents: read
+      id-token: write
+
+    steps:
+      - name: Download the released VSIX
+        env:
+          GH_TOKEN: ${{ github.token }}
+          RELEASE_TAG: ${{ inputs.tag }}
+        run: |
+          set -euo pipefail
+          VSIX="vscode-kimi-code-cli-launcher-${RELEASE_TAG#v}.vsix"
+          mkdir -p .release
+          gh release download "$RELEASE_TAG" \
+            --repo "$GITHUB_REPOSITORY" \
+            --pattern "$VSIX" \
+            --pattern "$VSIX.sha256" \
+            --dir .release
+          (cd .release && sha256sum -c "$VSIX.sha256")
+
+      - name: Publish to Visual Studio Marketplace
+        env:
+          RELEASE_TAG: ${{ inputs.tag }}
+        run: |
+          npx --yes @vscode/vsce@4.1.0 publish \
+            --packagePath ".release/vscode-kimi-code-cli-launcher-${RELEASE_TAG#v}.vsix" \
+            --oidc --skip-duplicate
+
+      - name: Publish to Open VSX
+        env:
+          RELEASE_TAG: ${{ inputs.tag }}
+        run: |
+          npx --yes ovsx@1.3.0 publish \
+            --packagePath ".release/vscode-kimi-code-cli-launcher-${RELEASE_TAG#v}.vsix" \
+            --trusted-publishing --skip-duplicate
