@@ -70,7 +70,7 @@ Use `npm ci --ignore-scripts` for a clean, reproducible install. Do not replace 
 - Add user-visible changes to the `Unreleased` section of `CHANGELOG.md`.
 - For a release, keep versions synchronized in `package.json`, `package-lock.json`, `CITATION.cff`, and `test/metadata.test.js`; keep the real release date synchronized between `CITATION.cff` and `CHANGELOG.md`. `npm version <x.y.z> --no-git-tag-version` is the supported way to update the manifest and the lockfile together.
 - A `v<version>` tag triggers the GitHub release workflow. Do not create tags, push, publish, or upload Marketplace packages unless explicitly authorized.
-- The extension is published as `mikesoft.vscode-kimi-code-cli-launcher` on the VS Code Marketplace and on Open VSX. Both registries are updated manually by the maintainer with `vsce publish` and `ovsx publish`; the required tokens are deliberately absent from this repository, from the shell environment, and from GitHub Actions secrets, so no workflow or agent can publish. Never add them.
+- The extension is published as `mikesoft.vscode-kimi-code-cli-launcher` on the VS Code Marketplace and on Open VSX. Both registries are updated by the owner by manually dispatching the `Release` workflow with an existing release tag; it uses OIDC trusted publishing, so no long-lived registry token is stored in the repository, the shell environment, or GitHub Actions secrets. Never add publishing tokens.
 - `main` is protected and requires one approving review. Land changes through a branch and a pull request; never self-approve or bypass the protection.
 - Maintain the unofficial-project and trademark disclaimer. Do not imply endorsement by Moonshot AI or Kimi.
 

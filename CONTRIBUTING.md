@@ -110,11 +110,13 @@ For a release:
 
 The `Release` workflow verifies the tag/version match, reruns validation and the security audit, packages the VSIX, creates a SHA-256 checksum, and creates or updates the GitHub release.
 
-VS Code Marketplace and Open VSX publishing are separate manual maintainer steps:
+VS Code Marketplace and Open VSX publishing is owner-controlled and uses OIDC trusted publishing. After
+the GitHub release exists, dispatch the `Release` workflow with that release tag:
 
 ```bash
-npx @vscode/vsce publish --packagePath vscode-kimi-code-cli-launcher-<version>.vsix
-npx ovsx publish vscode-kimi-code-cli-launcher-<version>.vsix
+gh workflow run release.yml -f tag=v<x.y.z>
 ```
 
-These commands require registry publisher tokens. Tokens are deliberately absent from the repository, local automation, and GitHub Actions.
+The publish job downloads the released VSIX, verifies its checksum, and publishes it to both registries
+with short-lived OIDC credentials. No registry publisher token is stored in the repository, local
+automation, or GitHub Actions secrets.
