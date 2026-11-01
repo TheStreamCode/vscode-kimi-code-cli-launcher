@@ -117,6 +117,6 @@ the GitHub release exists, dispatch the `Release` workflow with that release tag
 gh workflow run release.yml -f tag=v<x.y.z>
 ```
 
-The publish job downloads the released VSIX, verifies its checksum, and publishes it to both registries
-with short-lived OIDC credentials. No registry publisher token is stored in the repository, local
-automation, or GitHub Actions secrets.
+The publish job downloads the released VSIX, verifies its SHA-256 against the digest recorded on the
+GitHub release asset, and publishes it to both registries with short-lived OIDC credentials. No
+registry publisher token is stored in the repository, local automation, or GitHub Actions secrets.
